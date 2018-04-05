@@ -34,7 +34,7 @@
                     <tr>
                         <td><?= $ar->nome ?></td>
                         <td>
-                            <?= anchor(base_url("index.php/artefato/$ar->idArtefato"), "Vizualizar", array('class' => "w3-button w3-blue w3-hover-std-blue w3-block w3-small")) ?>
+                            <?= anchor(base_url("index.php/artefato/visualizar/$ar->idArtefato"), "Visualizar", array('class' => "w3-button w3-blue w3-hover-std-blue w3-block w3-small")) ?>
                         </td>
                         <td>
                             <?= anchor(base_url("index.php/artefato/aprovarArtefato/$ar->idArtefato"), "Aprovar", array('class' => "w3-button w3-green w3-hover-std-green w3-block w3-small")) ?>

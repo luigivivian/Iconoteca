@@ -32,41 +32,40 @@ class Artefato extends CI_Controller
             $dados['slides'] = $this->m_any->getImgs();
 
             $this->template->load('templates/default', 'artefato/artefato', $dados);
-        }
-        else{// Artefato inexistente
-            //Procurar artefato na area de adicionar
-            $artefatoAP = $this->m_any->get("aprovarArtefatos", null, null, null, null, null, "idArtefato", $id, "nome, nomeArquivo, complDesc, lat, lng, designacao, procedencia, dimensoes, material");
-            if($artefatoAP->num_rows() > 0){
-
-                $artefato = $artefatoAP->row();
-                $dados = array(
-                    'nomeArtefato'   => $artefato->nome,
-                    'arquivo'        => base_url('assets/modelos/' . $artefato->nomeArquivo),
-                    'complDesc'      => $artefato->complDesc,
-                    'latitude'       => $artefato->lat,
-                    'longitude'      => $artefato->lng,
-                    'pictures'       => $this->m_icone->getImagesAprovar($id),
-                    'locDownload'    => 'assets/modelos/'.$artefato->nomeArquivo,
-                    'nomeArquivoDownload'    => $artefato->nomeArquivo,
-                    'designacao'  =>  $artefato->designacao,
-                    'procedencia'  => $artefato->procedencia,
-                    'dimensoes'  => $artefato->dimensoes,
-                    'material'  => $artefato->material
-                );
-
-                $dados['title'] = $dados['nomeArtefato'] . " - Iconoteca";
-                $dados['paginaArtefato'] = TRUE;
-                $dados['slides'] = $this->m_any->getImgs();
-
-                $this->template->load('templates/default', 'artefato/artefato', $dados);
-            }else{// Artefato inexistente 2
+        }else{// Artefato inexistente 2
                 redirect();
             }
-
-        }
-
     }
 
+    public function visualizar($id){
+        if(!isset($id)) redirect();
+        //Procurar artefato na area de adicionar
+        $artefatoAP = $this->m_any->get("aprovarArtefatos", null, null, null, null, null, "idArtefato", $id, "nome, nomeArquivo, complDesc, lat, lng, designacao, procedencia, dimensoes, material");
+        if($artefatoAP->num_rows() > 0){
+
+            $artefato = $artefatoAP->row();
+            $dados = array(
+                'nomeArtefato'   => $artefato->nome,
+                'arquivo'        => base_url('assets/modelos/' . $artefato->nomeArquivo),
+                'complDesc'      => $artefato->complDesc,
+                'latitude'       => $artefato->lat,
+                'longitude'      => $artefato->lng,
+                'pictures'       => $this->m_icone->getImagesAprovar($id),
+                'locDownload'    => 'assets/modelos/'.$artefato->nomeArquivo,
+                'nomeArquivoDownload'    => $artefato->nomeArquivo,
+                'designacao'  =>  $artefato->designacao,
+                'procedencia'  => $artefato->procedencia,
+                'dimensoes'  => $artefato->dimensoes,
+                'material'  => $artefato->material
+            );
+
+            $dados['title'] = $dados['nomeArtefato'] . " - Iconoteca";
+            $dados['paginaArtefato'] = TRUE;
+            $dados['slides'] = $this->m_any->getImgs();
+
+            $this->template->load('templates/default', 'artefato/artefato', $dados);
+    }
+}
     public function deletarImagens($imgs){
         if(!isset($imgs)) redirect('index.php/artefato/editar/');
         $i = 3; //parametro 3 começa o nome das imagens recebidas pela url
@@ -211,7 +210,8 @@ class Artefato extends CI_Controller
         else
         {
             $this->load->library('upload');
-            if($this->input->post('inputArquivo') != null){
+
+            if($_FILES['arquivo']['name'] !== ''){
 
                 // Adiciona o arquivo stl à pasta assets/modelos
                 $arquivo = $_FILES['arquivo'];
@@ -342,9 +342,9 @@ class Artefato extends CI_Controller
             if($id_artefato)
             {
                 $dados['title'] = 'Aprovar Artefatos';
-                if(!isset($mensagem)) $dados['mensagem'] = "Aprovar artefatos";
+                if(!isset($mensagem)) $dados['mensagem'] = "Artefato deletado com sucesso !";
                 $this->m_any->deleteWhere("idArtefato", $id_artefato, "aprovarArtefatos");
-                $this->template->load('templates/default', 'artefato/aprovar', $dados);
+                redirect('index.php/artefato/aprovarArtefato/');
             }
         }
 
@@ -371,10 +371,10 @@ class Artefato extends CI_Controller
             else
             {
                 $dados['artefato'] = $this->m_any->get("aprovarArtefatos", null, null, null, null, null, "idArtefato", $id_artefato, "idArtefato,nome, categoria, shortDesc, complDesc, idOwner, icone, nomeArquivo, lat, lng, designacao, procedencia, dimensoes, material");
-                $id = $dados['artefato']->row('idArtefato');
-
+                $id = $this->m_any->getID()->row('id');
+                $id += 1;
                 $dadosArtefato = array(
-                    "idArtefato"  => $id_artefato,
+                    "idArtefato"  => $id,
                     "nome"        => $dados['artefato']->row('nome'),
                     "categoria"   => $dados['artefato']->row('categoria'),
                     "shortDesc"   => $dados['artefato']->row('shortDesc'),
@@ -396,7 +396,7 @@ class Artefato extends CI_Controller
 
                 foreach ($dados['imagensAp']->result() as $row) {
                     $dadosImg = array(
-                        "idIcone"      => $row->idIcone,
+                        "idIcone"      => $id,
                         "nomeImagem"   => $row->nomeImagem
                     );
                     $this->m_any->store("imagens", $dadosImg); //armazenando imagens na tabela definitiva

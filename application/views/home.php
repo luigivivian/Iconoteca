@@ -87,6 +87,7 @@
                     <div class="w3-container w3-white">
                         <?php if($artefato->nomeArquivo == "nulo"){ ?>
                             <p><b><?= $artefato->nome ?> </b> <i class="fa fa-eye-slash w3-xlarge"></i></p>
+                            <p><?= $artefato->shortDesc ?></p>
                         <?php }else{ ?>
                             <p><b><?= $artefato->nome ?></b></p>
                             <p><?= $artefato->shortDesc ?></p>

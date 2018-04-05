@@ -82,7 +82,7 @@
 
     <!--  Slides imagens-->
     <?php if($pictures->num_rows() > 0) { ?>
-        <?php if($nomeArquivoDownload == "nulo"){ ?>
+        <?php if($nomeArquivoDownload == 'nulo'){ ?>
             <div>
             </div>
         <?php }else{ ?>

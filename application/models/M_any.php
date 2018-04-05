@@ -54,6 +54,11 @@ class M_any extends CI_Model
         return $get;
     }
 
+    public function getID(){
+        $query = $this->db->query("SELECT max(idArtefato) AS id FROM artefatos;");
+        return $query;
+    }
+
     // Deleta um registro da tabela @tabela onde @campo for igual a @valor
     public function deleteWhere($campo, $valor, $tabela)
     {
