@@ -64,7 +64,7 @@
                     <div class="w3-row w3-section">
                         <div class="w3-col" style="width:50px"><i class="w3-xxlarge fa fa-address-card"></i></div>
                         <div class="w3-rest">
-                            <input class="w3-input w3-border" value="<?= set_value('bCurriculo')?>" name="bCurriculo" type="text" placeholder="Digite um breve curriculo sobre você !">
+                            <textarea rows="4" cols="50" style="resize: none;" class="w3-input w3-border" value="<?= set_value('bCurriculo')?>" name="bCurriculo" type="text" placeholder="Digite um breve curriculo sobre você !"></textarea>
                         </div>
                     </div>
 
@@ -78,6 +78,7 @@
                                 <?php endforeach; ?>
                             </select>
                         </div>
+                        <a href="#" onclick="document.getElementById('cadInst').style.display='block'"><p class="w3-button, w3-text-dark-gray">Sua instituição não esta na lista? cadastre aqui !</p></a>
                     </div>
 
                     <button class="w3-button w3-block w3-green w3-section w3-padding" type="submit">Cadastrar</button>
@@ -87,7 +88,7 @@
 
         </div>
         <div class="w3-row w3-margin">
-            <a href="#" onclick="document.getElementById('cadInst').style.display='block'"><p class="w3-button, w3-text-dark-gray">Sua instituição não esta na lista? cadastre aqui !</p></a>
+
             <div id="cadInst" class="w3-modal">
                 <div class="w3-modal-content">
                     <header class="w3-container w3-green">

@@ -5,7 +5,6 @@ body, h1, h2, h3, h4, h5, h6 {
 #content {
     min-height: 100vh;
 }
-
 #artefato {
     height: 500px;
 }
@@ -23,9 +22,12 @@ body, h1, h2, h3, h4, h5, h6 {
 }
 #outrosArtefatos{
     height: 700px !important;
-
 }
-
+.textOutrosArtefatos{
+    border-style: solid !important;
+    border-color: rgb(0, 0, 0) !important;
+    border-width: 2px;
+}
 #map {
     height: 500px;
 }

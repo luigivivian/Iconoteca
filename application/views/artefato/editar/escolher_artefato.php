@@ -23,20 +23,34 @@
         <table class="w3-table-all">
             <thead>
                 <tr class="w3-black">
-                    <th>Nome</th>
-                    <th></th>
-                    <th></th>
+                    <th class="w3-left w3-margin-left">Artefatos</th>
+                    <th class="w3-left"></th>
+                    <th class="w3-center">Visualizar</th>
+                    <th class="w3-center">Editar</th>
                 </tr>
             </thead>
             <tbody>
                 <?php foreach($artefatos->result() as $ar): ?>
                 <tr>
-                    <td><?= $ar->nome ?></td>
+                    <td class="w3-left">
+                        <img src="<?= base_url('assets/imagens/icones/'.$ar->icone)?>" style="width: 100px; height: 100px;">
+                    </td>
+                    <td class="w3-left">
+                        <h3 style="padding-top: 22px;">
+                            <?= $ar->nome ?>
+                        </h3>
+                    </td>
+
                     <td>
-                        <?= anchor(base_url("index.php/artefato/$ar->idArtefato"), "Abrir", array('class' => "w3-button w3-red w3-hover-std-red w3-block w3-small")) ?>
+                        <div style="padding-top: 27px;">
+                            <?= anchor(base_url("index.php/artefato/$ar->idArtefato"), "<i class='fa fa-search-plus fa-2x'></i>", array('class' => "w3-button w3-green w3-hover-std-green w3-block w3-medium")) ?>
+                        </div>
+
                     </td>
                     <td>
-                        <?= anchor(base_url("index.php/artefato/editar/$ar->idArtefato"), "Editar", array('class' => "w3-button w3-blue w3-hover-std-blue w3-block w3-small")) ?>
+                        <div style="padding-top: 27px;">
+                            <?= anchor(base_url("index.php/artefato/editar/$ar->idArtefato"), "<i class='fa fa-edit fa-2x'></i>", array('class' => "w3-button w3-blue w3-hover-std-blue w3-block w3-medium")) ?>
+                        </div>
                     </td>
                 </tr>
                 <?php endforeach; ?>

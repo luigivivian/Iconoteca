@@ -51,6 +51,15 @@
             <a href="<?php if(!isset($link)) echo base_url('index.php/conta'); ?>" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i class="fa fa-user-circle fa-fw w3-margin-right"></i>MINHA CONTA</a>
             <a href="<?php if(!isset($link)) echo base_url('index.php/logout'); ?>" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i class="fa fa-sign-out fa-fw w3-margin-right"></i>LOGOUT</a>
         <?php } ?>
+
+            <button onclick="myFunction('parceiros')" class="w3-bar-item w3-button w3-padding"><i class="fa fa-wrench fa-fw w3-margin-right"></i>MANTENEDORES</button>
+            <div id="parceiros" class="w3-container w3-hide">
+                <a href="<?php if(!isset($link)) echo base_url('index.php'); ?>" onclick="w3_close()" class="w3-bar-item w3-button"><i class="fa fa-wrench fa-fw w3-margin-right"></i>FABRICA DE SOFTWARE</a>
+                <a href="<?php if(!isset($link)) echo base_url('index.php'); ?>" onclick="w3_close()" class="w3-bar-item w3-button"><i class="fa fa-wrench fa-fw w3-margin-right"></i>PPGH</a>
+                <a href="<?php if(!isset($link)) echo base_url('index.php'); ?>" onclick="w3_close()" class="w3-bar-item w3-button"><i class="fa fa-wrench fa-fw w3-margin-right"></i>NUPAH</a>
+                <a href="<?php if(!isset($link)) echo base_url('index.php'); ?>" onclick="w3_close()" class="w3-bar-item w3-button"><i class="fa fa-wrench fa-fw w3-margin-right"></i>LACUMA</a>
+            </div>
+
         </div>
     </nav>
 
@@ -221,5 +230,16 @@
     }
 </script>
 <?php } ?>
+
+<script>
+function myFunction(id) {
+    var x = document.getElementById(id);
+    if (x.className.indexOf("w3-show") == -1) {
+        x.className += " w3-show";
+    } else {
+        x.className = x.className.replace(" w3-show", "");
+    }
+}
+</script>
 </body>
 </html>

@@ -1,3 +1,45 @@
+<style>
+.container {
+    position: relative;
+    width: 50%;
+}
+
+.image {
+  opacity: 1;
+  display: block;
+  width: 100%;
+  height: auto;
+  transition: .5s ease;
+  backface-visibility: hidden;
+}
+
+.middle {
+  transition: .5s ease;
+  opacity: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.container:hover .image {
+  opacity: 0.3;
+}
+
+.container:hover .middle {
+  opacity: 1;
+}
+
+.text {
+  background-color: #4CAF50;
+  color: white;
+  font-size: 16px;
+  padding: 16px 32px;
+}
+</style>
+
 <div class="w3-container">
     <!-- Nome do artefato -->
     <div class="w3-row">
@@ -119,17 +161,22 @@
         </div>
     </div>
     <div class="w3-margin-top w3-margin-bottom w3-display-container" id="outrosArtefatos">
-        <h2>Outros artefatos</h2>
+        <div class="textOutrosArtefatos w3-margin-top">
+            <h2>Outros artefatos</h2>
+        </div>
+
         <?php foreach ($slides->result() as $slide): ?>
-            <div class="w3-row slides">
-                <div class="w3-col s6">
-                    <a href="<?= base_url('index.php/artefato/'.$slide->idArtefato); ?>"><img src="<?= base_url('assets/imagens/icones/'.$slide->icone)?>" style="width: 100%; height: 450px;"class="fotosArtefatos"></a>
+            <div class="w3-row slides w3-margin-top">
+                <div class="w3-col s6 container">
+                        <img src="<?= base_url('assets/imagens/icones/'.$slide->icone)?>" style="width: 100%; height: 450px;"class="image fotosArtefatos">
+                        <div class="middle">
+                          <a class="w3-button w3-green" href="<?= base_url('index.php/artefato/'.$slide->idArtefato); ?>"><i class="fa fa-eye fa-fw"></i>Ver artefato</a>
+                        </div>
                 </div>
                 <div class="w3-col s6 w3-margin-top">
                     <!--  Div da descricao-->
                     <div class="w3-row w3-margin-top">
                         <div class="w3-col s2 w3-center"><p></p></div>
-
                         <div class="w3-col s8 w3-center w3-margin-top">
                             <div class="fotosArtefatos">
                                 <h2><?= $slide->nome?></h2>
@@ -144,8 +191,6 @@
                         </div>
                         <div class="w3-col s2 w3-center"><p></p></div>
                     </div>
-
-
                 </div>
             </div>
 
@@ -153,11 +198,8 @@
 
         <button class="w3-button w3-black w3-display-left" onclick="plusDivs(-1)">&#10094;</button>
         <button class="w3-button w3-black w3-display-right" onclick="plusDivs(1)">&#10095;</button>
-        <div class="w3-center" >
-            <a class="w3-button w3-block w3-green" href="<?= base_url('index.php/artefato/'.$slide->idArtefato)?>">Ver artefato</a>
-        </div>
-    </div>
 
+    </div>
 
     <div id="modal01" class="w3-modal" onclick="this.style.display='none'">
         <span class="w3-button w3-red w3-hover-std-red w3-xlarge w3-display-topright">&times;</span>

@@ -67,6 +67,11 @@
                 <input type="file" id="inputIcone" name="icone">
             </div>
 
+            <div class="w3-row w3-section">
+                <input type="file" id="inputFotos" name="imagens[]" multiple>
+            </div>
+
+
             <!-- Imagens atuais do artefato -->
             <div class="w3-row w3-section">
         <?php
@@ -93,22 +98,23 @@
         <?php   } ?>
             </div>
 
+
+            <!-- Novas imagens do artefato -->
+
+
             <div class="w3-panel w3-green">
               <div class="">
-                  <h3>Atenção !</h3>
-                  <h4>Selecione as imagens que deseja remover, logo após confirme a remoção.</h4>
-                  <h4>Após remover as imagens essa alteração não podera ser desfeita !</h4>
-                  <button onclick="deletarImagens();" type="button" class="w3-button w3-margin-top w3-margin-bottom w3-block w3-red">Remover</button>
+                  <h5>Atenção !</h5>
+                  <p>Selecione as imagens que deseja remover, logo após confirme a remoção.</p>
+                  <p>Após remover as imagens essa alteração não podera ser desfeita !</p>
+                  <button onclick="deletarImagens();" type="button" class="w3-button w3-margin-top w3-margin-bottom w3-small w3-block w3-red">Remover</button>
              </div>
             </div>
 
 
 
 
-            <!-- Novas imagens do artefato -->
-            <div class="w3-row w3-section">
-                <input type="file" id="inputFotos" name="imagens[]" multiple>
-            </div>
+
 
             <!-- Descrição do artefato no portfólio -->
             <div class="w3-row w3-section">

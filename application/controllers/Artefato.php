@@ -443,6 +443,7 @@ class Artefato extends CI_Controller
                 $dados['categorias'] = $this->m_any->get("categorias", null, null, null, "nomeCategoria", "asc");
                 $dados['imagens'] = $this->m_icone->getImages($id_artefato);
                 $dados['idArtefato'] = $id_artefato;
+                $dados['icone'] = $this->m_any->get("artefatos", null, null, null, null, null, "idArtefato", $id_artefato, "icone")->row();
                 $dados['paginaEditArtefato'] = true;
                 $this->template->load('templates/default', 'artefato/editar/editar_artefato', $dados);
             }
@@ -450,7 +451,7 @@ class Artefato extends CI_Controller
         // Caso contrário, abrir a página de seleção de artefatos
         else
         {
-            $dados['artefatos']  = $this->m_any->get("artefatos", null, null, null, null, null, "idOwner", $this->session->userdata('idUser'), "nome, idArtefato");
+            $dados['artefatos']  = $this->m_any->get("artefatos", null, null, null, null, null, "idOwner", $this->session->userdata('idUser'), "nome, idArtefato, icone");
             $this->template->load('templates/default', 'artefato/editar/escolher_artefato', $dados);
         }
     }
