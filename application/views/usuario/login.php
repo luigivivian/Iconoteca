@@ -53,12 +53,6 @@
                               <div id="formRecSenha">
                                   <?= form_open('recuperar', array('class' => "w3-container"))  ?>
                                       <div class="w3-row w3-section">
-                                          <div class="w3-col" style="width:50px"><i class="w3-xxlarge fa fa-user"></i></div>
-                                          <div class="w3-rest">
-                                              <input class="w3-input w3-border" name="username" type="text" placeholder="Digite seu usuario" required autofocus>
-                                          </div>
-                                      </div>
-                                      <div class="w3-row w3-section">
                                           <div class="w3-col" style="width:50px"><i class="w3-xxlarge fa fa-envelope"></i></div>
                                           <div class="w3-rest">
                                               <input class="w3-input w3-border" name="email" type="email" placeholder="Digite seu email" required autofocus>

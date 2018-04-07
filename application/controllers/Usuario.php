@@ -293,7 +293,7 @@ class Usuario extends CI_Controller
             \nEfetue o login utilizando esses dados
             \nApós efetuar o login utilize o painel do usuario para alterar seus dados
             \n###########Dados###########
-            \nUsuario: $user
+            \nEmail: $email
             \nSenha: $chaveRecuperacao
             \n###########################
             \n============================================

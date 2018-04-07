@@ -298,10 +298,41 @@ class Artefato extends CI_Controller
                     $this->m_any->store("imagensAprovar", $dados);
                 }
             }
+            //Enviar email para administradores
+            $adms = $this->m_any->getADM();
+
+            foreach ($adms->result() as $admin) {
+
+                $email = $this->input->post('email');
+                $this->load->library('email');
+                $this->email->from('iconotecaUPF@upf.br', 'UPF-Iconoteca');
+                $this->email->to($admin->email);
+                $this->email->subject('Aprovar Artefato');
+
+                $query = $this->m_user->validarEmail($email);
+                $nomeEnvio = $this->session->userdata('nome') ." ".$this->session->userdata('sobrenome');
+
+                $this->email->message("==================Iconoteca==================
+                    \nOlá administrador, o usuario: $nomeEnvio Acaba de enviar um artefato.
+                    \nNome do artefato: " .$this->input->post('nome')."
+                    \nCategoria: ".$this->input->post('categoria')."
+                    \nVocê pode verificar o mesmo no painel administrativo.
+                    \nEste artefato esta aguardando sua aprovação !
+                    \nAcesse: ".base_url('artefato/aprovarArtefato')."
+                    \n============================================
+                    ");
+                 $result = $this->email->send();
+            }
+
 
             // Retorna para o painel
             redirect('index.php/conta');
         }
+    }
+    public function teste(){
+        $dados['adms'] = $this->m_any->getADM();
+        $dados['teste'] = base_url('artefato/aprovarArtefato');
+        $this->template->load('templates/default', 'teste', $dados);
     }
 
     // Função de callback para validar a extensão do arquivo STL no método editar_run

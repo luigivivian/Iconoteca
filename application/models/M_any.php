@@ -31,12 +31,12 @@ class M_any extends CI_Model
         return $this->db->get();
     }
 
-    public function getImgs()
-    {
-        //$this->db->select("*");
-        //$this->db->from("artefatos");
+    public function getADM(){
+        return $this->db->query("SELECT email FROM usuarios WHERE adm = 1");
+    }
 
-        // $this->db->get();
+    public function getImgs() //funcao utilizada para pegar os artefatos utilizados na area "outros artefatos"
+    {
         return $this->db->query("SELECT * FROM artefatos LIMIT 10;");
     }
     //funcao para deletar as imagens na aba de editar artefatos
@@ -45,10 +45,11 @@ class M_any extends CI_Model
         $this->db->where("nomeImagem", $nome);
         $this->db->delete();
     }
-
+    //retorna as instituições
     public function getInst(){
         return $this->db->query("SELECT * FROM instituicoes;");
     }
+    //retorna o id da instituição pelo nome
     public function getInstCod($nome){
         $get = $this->db->query("SELECT idInstituicao FROM instituicoes WHERE nome LIKE '$nome';");
         return $get;
