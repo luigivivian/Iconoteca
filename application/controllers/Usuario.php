@@ -112,7 +112,7 @@ class Usuario extends CI_Controller
 
             $this->m_any->store('usuarios', $dadosU); //armazenando dados do
             $this->m_any->deleteWhere('idUser', $id_usuario, 'aprovarUsuarios'); //deletando usuario da tabela provisoria
-            $dados['mensagem'] = "Usuario deletado com sucesso !";
+            $dados['mensagem'] = "Usuario aprovado com sucesso !";
             $this->template->load('templates/default', 'usuario/aprovar', $dados);
 
         }else{  //pagina para listar usuarios
