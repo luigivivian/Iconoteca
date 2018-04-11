@@ -2,7 +2,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 $autoload['packages'] = array();
-$autoload['libraries'] = array('template','database', 'session');
+$autoload['libraries'] = array('template','database', 'session', 'pagination');
 $autoload['drivers'] = array();
 $autoload['helper'] = array('url','html','form', 'download', 'file');
 $autoload['config'] = array();

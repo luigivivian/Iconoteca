@@ -160,9 +160,20 @@
             <!-- Here goes the map -->
         </div>
     </div>
+
+    <?php if(isset($aprovar) && $aprovar == TRUE){ ?>
+        <div class="w3-margin-top">
+            <?= anchor(base_url("index.php/artefato/aprovarArtefato/$id"), "Aprovar", array('class' => "w3-button w3-green w3-hover-std-green w3-block w3-large")) ?>
+        </div>
+        <div class="w3-margin-top">
+            <?= anchor(base_url("index.php/artefato/deletarArtefato/$id"), "Deletar", array('class' => "w3-button w3-red w3-hover-std-green w3-block w3-large")) ?>
+        </div>
+
+
+    <?php } ?>
     <div class="w3-margin-top w3-margin-bottom w3-display-container" id="outrosArtefatos">
-        <div class="textOutrosArtefatos w3-margin-top">
-            <h2>Outros artefatos</h2>
+        <div class="textOutrosArtefatos w3-margin-top w3-panel w3-pale-red">
+            <h2 class="w3-center">Outros artefatos</h2>
         </div>
 
         <?php foreach ($slides->result() as $slide): ?>

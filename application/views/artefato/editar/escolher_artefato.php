@@ -49,7 +49,14 @@
                     </td>
                     <td>
                         <div style="padding-top: 27px;">
-                            <?= anchor(base_url("index.php/artefato/editar/$ar->idArtefato"), "<i class='fa fa-edit fa-2x'></i>", array('class' => "w3-button w3-blue w3-hover-std-blue w3-block w3-medium")) ?>
+                            <?php
+                                if($this->uri->segment(4) == null){
+                                    $pag = 1;
+                                }else{
+                                    $pag = $this->uri->segment(4);
+                                }
+                             ?>
+                            <?= anchor(base_url("index.php/artefato/editar/p/".$pag."/$ar->idArtefato"), "<i class='fa fa-edit fa-2x'></i>", array('class' => "w3-button w3-blue w3-hover-std-blue w3-block w3-medium")) ?>
                         </div>
                     </td>
                 </tr>
@@ -57,5 +64,13 @@
             </tbody>
         </table>
     </div>
+
+    <div class="w3-center w3-padding-32">
+        <div class="w3-bar w3-border w3-large">
+            <?= $this->pagination->create_links(); ?>
+        </div>
+    </div>
+
+
 <?php } ?>
 </div>

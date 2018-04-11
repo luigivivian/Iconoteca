@@ -9,6 +9,7 @@ $route['translate_uri_dashes'] = FALSE;
 $route['home/(:any)']        = 'home/index/$1';             // Sem categoria escolhida
 $route['home/(:any)/(:num)'] = 'home/index/$1/$2';   // Com categoria escolhida
 
+
 // Rotas para Home quando realizado uma busca
 $route['buscar']        = 'home/buscarArtefato/';
 $route['buscar/(:num)'] = 'home/buscarArtefato/$1';

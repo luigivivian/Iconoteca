@@ -214,7 +214,7 @@
                         <i class="fa fa-lg fa-plus" aria-hidden="true"></i>
                         Adicionar
                     </a>
-                    <a href="artefato/editar" class="w3-button w3-block w3-left-align w3-white">
+                    <a href="artefato/editar/p/1" class="w3-button w3-block w3-left-align w3-white">
                         <i class="fa fa-lg fa-edit" aria-hidden="true"></i>
                         Editar
                     </a>

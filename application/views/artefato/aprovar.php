@@ -23,30 +23,32 @@
             <table class="w3-table-all">
                 <thead>
                     <tr class="w3-black">
+                        <th>Artefato</th>
                         <th>Nome</th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
+                        <th class="w3-center">Visualizar</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php foreach($artefatos->result() as $ar): ?>
                     <tr>
-                        <td><?= $ar->nome ?></td>
-                        <td>
-                            <?= anchor(base_url("index.php/artefato/visualizar/$ar->idArtefato"), "Visualizar", array('class' => "w3-button w3-blue w3-hover-std-blue w3-block w3-small")) ?>
+                        <td class="w3-left">
+                            <img src="<?= base_url('assets/imagens/icones/'.$ar->icone)?>" style="width: 100px; height: 100px;">
                         </td>
+
+                        <td><h3 style="padding-top: 22px;"><?= $ar->nome ?></h3></td>
                         <td>
-                            <?= anchor(base_url("index.php/artefato/aprovarArtefato/$ar->idArtefato"), "Aprovar", array('class' => "w3-button w3-green w3-hover-std-green w3-block w3-small")) ?>
+                            <div style="padding-top: 27px;">
+                            <?= anchor(base_url("index.php/artefato/visualizar/$ar->idArtefato"), "<i class='fa fa-search-plus fa-2x'></i>", array('class' => "w3-button w3-blue w3-hover-std-blue w3-block w3-small")) ?>
+                            </div>
                         </td>
-                        <td>
-                            <?= anchor(base_url("index.php/artefato/deletarArtefato/$ar->idArtefato"), "Deletar", array('class' => "w3-button w3-red w3-hover-std-green w3-block w3-small")) ?>
-                        </td>
+
                     </tr>
                     <?php endforeach; ?>
                 </tbody>
             </table>
+
         </div>
+
     <?php } ?>
 <?php } ?>
 </div>

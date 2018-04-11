@@ -31,6 +31,13 @@ class M_any extends CI_Model
         return $this->db->get();
     }
 
+    public function countArtefatos($id){
+        return $this->db->query("SELECT COUNT(*) AS totalArtefatos
+                                FROM usuarios INNER JOIN artefatos
+                                ON usuarios.idUser = artefatos.idOwner
+                                WHERE artefatos.idOwner = $id");
+    }
+
     public function getADM(){
         return $this->db->query("SELECT email FROM usuarios WHERE adm = 1");
     }

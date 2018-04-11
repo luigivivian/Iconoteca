@@ -8,7 +8,6 @@ class Usuario extends CI_Controller
     {
         $dados['title'] = "Área de login";
         if($mensagem) $dados['mensagem'] = $mensagem;
-
         $this->template->load('templates/default', 'usuario/login', $dados);
     }
 
@@ -18,7 +17,6 @@ class Usuario extends CI_Controller
         // Dados do formulário
         $email = $this->input->post('email');
         $senha    = md5($this->input->post('senha'));
-
         $query = $this->m_user->validarDados($email, $senha);
 
         if($query->num_rows() > 0)
@@ -29,7 +27,6 @@ class Usuario extends CI_Controller
                 $this->m_any->mudarCampo('usuarios', 'email', $email, array('statusConta' => "1"));
                 $mensagem = "<h3 class=\"w3-text-green\"><b>Conta reativada!</b></h2>";
             }
-
             $varSession = array(
 				'nome'      => $query->row()->nome,
                 'sobrenome' => $query->row()->sobrenome,
@@ -38,7 +35,6 @@ class Usuario extends CI_Controller
                 'adm'       => $query->row()->adm,
 				'logado' 	=> TRUE
 			);
-
 			$this->session->set_userdata($varSession);
 			$this->conta($mensagem);
         }

@@ -56,7 +56,9 @@ class Artefato extends CI_Controller
                 'designacao'  =>  $artefato->designacao,
                 'procedencia'  => $artefato->procedencia,
                 'dimensoes'  => $artefato->dimensoes,
-                'material'  => $artefato->material
+                'material'  => $artefato->material,
+                'aprovar'   => TRUE,
+                'id' => $id
             );
 
             $dados['title'] = $dados['nomeArtefato'] . " - Iconoteca";
@@ -438,11 +440,11 @@ class Artefato extends CI_Controller
                 $dados['mensagem'] = "<h3 class=\"w3-text-green\"><b>Artefato aprovado com sucesso !</b></h3>";
                 $this->template->load('templates/default', 'artefato/aprovar', $dados);
             }
-        }
-        // Caso contrário, abrir a página de seleção de artefatos
-        else
-        {
+            // Caso contrário, abrir a página de seleção de artefatos
+        }else{
+
             $dados['artefatos']  = $this->m_any->get("aprovarArtefatos", null, null, null, null, null);
+
             $this->template->load('templates/default', 'artefato/aprovar', $dados);
         }
     }
@@ -450,12 +452,11 @@ class Artefato extends CI_Controller
 
 
 
-    public function editar($id_artefato = null, $mensagem = null)
+    public function editar($page = null, $np = null,  $id_artefato = null, $mensagem = null)
     {
         if(!$this->checarLogado()) redirect();
         $dados['title'] = 'Editar artefatos';
         if($mensagem) $dados['mensagem'] = $mensagem;
-
         // Se $artefato != null, validar o id do artefato
         if($id_artefato)
         {
@@ -482,9 +483,34 @@ class Artefato extends CI_Controller
         // Caso contrário, abrir a página de seleção de artefatos
         else
         {
-            $dados['artefatos']  = $this->m_any->get("artefatos", null, null, null, null, null, "idOwner", $this->session->userdata('idUser'), "nome, idArtefato, icone");
+
+            $limit = ($this->uri->segment(4)) ? $this->uri->segment(4) : 1;
+            $dados['artefatos']  = $this->m_any->get("artefatos", null, $limit, 6, null, null, "idOwner", $this->session->userdata('idUser'), "nome, idArtefato, icone");
+            $URL = base_url('index.php/artefato/editar/p');
+            $totalRows = $this->m_any->get("artefatos", null, null, null, null, null, "idOwner", $this->session->userdata('idUser'), "nome, idArtefato, icone")->num_rows();
+
+            $this->createPagination($URL, $totalRows);
+
             $this->template->load('templates/default', 'artefato/editar/escolher_artefato', $dados);
+
+
+
         }
+    }
+
+    public function createPagination($URL, $totalRows)
+    {
+        // Paginação
+        $this->load->library('pagination');
+        $config['base_url']   = $URL;
+        $config['total_rows'] = $totalRows;
+        $config['per_page']   = 6;
+        $config['num_links']  = 3;
+        $config['use_page_numbers'] = TRUE;
+        $config['cur_tag_open'] = '<a class="w3-bar-item w3-black w3-button">';
+        $config['cur_tag_close'] = '</a>';
+        $config['attributes'] = array('class' => 'w3-bar-item w3-button w3-hover-black');
+        $this->pagination->initialize($config);
     }
 
     public function editar_run()
