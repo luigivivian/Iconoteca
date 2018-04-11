@@ -54,10 +54,10 @@
 
             <button onclick="myFunction('parceiros')" class="w3-bar-item w3-button w3-padding"><i class="fa fa-wrench fa-fw w3-margin-right"></i>MANTENEDORES</button>
             <div id="parceiros" class="w3-container w3-hide">
-                <a href="<?php if(!isset($link)) echo base_url('index.php'); ?>" onclick="w3_close()" class="w3-bar-item w3-button"><i class="fa fa-wrench fa-fw w3-margin-right"></i>FABRICA DE SOFTWARE</a>
-                <a href="<?php if(!isset($link)) echo base_url('index.php'); ?>" onclick="w3_close()" class="w3-bar-item w3-button"><i class="fa fa-wrench fa-fw w3-margin-right"></i>PPGH</a>
-                <a href="<?php if(!isset($link)) echo base_url('index.php'); ?>" onclick="w3_close()" class="w3-bar-item w3-button"><i class="fa fa-wrench fa-fw w3-margin-right"></i>NUPAH</a>
-                <a href="<?php if(!isset($link)) echo base_url('index.php'); ?>" onclick="w3_close()" class="w3-bar-item w3-button"><i class="fa fa-wrench fa-fw w3-margin-right"></i>LACUMA</a>
+                <a href="<?php if(!isset($link)) echo base_url('index.php/mantenedores/fabricasoft'); ?>" onclick="w3_close()" class="w3-bar-item w3-button"><i class="fa fa-wrench fa-fw w3-margin-right"></i>FABRICA DE SOFTWARE</a>
+                <a href="<?php if(!isset($link)) echo base_url('index.php/mantenedores/ppgh'); ?>" onclick="w3_close()" class="w3-bar-item w3-button"><i class="fa fa-wrench fa-fw w3-margin-right"></i>PPGH</a>
+                <a href="<?php if(!isset($link)) echo base_url('index.php/mantenedores/nupha'); ?>" onclick="w3_close()" class="w3-bar-item w3-button"><i class="fa fa-wrench fa-fw w3-margin-right"></i>NUPAH</a>
+                <a href="<?php if(!isset($link)) echo base_url('index.php/mantenedores/nupha'); ?>" onclick="w3_close()" class="w3-bar-item w3-button"><i class="fa fa-wrench fa-fw w3-margin-right"></i>LACUMA</a>
             </div>
 
         </div>
