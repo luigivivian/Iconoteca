@@ -38,8 +38,19 @@ class M_any extends CI_Model
                                 WHERE artefatos.idOwner = $id");
     }
 
+    public function getInstAluno($id){
+        return $this->db->query("SELECT i.nome
+                                from instituicoes i
+                                INNER JOIN aprovarUsuarios u
+                                ON i.idInstituicao = u.codInstituicao
+                                WHERE u.idUser = $id");
+    }
+
     public function getADM(){
         return $this->db->query("SELECT email FROM usuarios WHERE adm = 1");
+    }
+    public function getUser($id){
+        return $this->db->query("SELECT * FROM aprovarUsuarios WHERE idUser = $id");
     }
 
     public function getImgs() //funcao utilizada para pegar os artefatos utilizados na area "outros artefatos"

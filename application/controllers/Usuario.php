@@ -88,6 +88,72 @@ class Usuario extends CI_Controller
         }
     }
 
+    public function aprovarUsuarios($id_usuario = null, $mensagem = null){
+        if(!$this->checarLogado()) redirect();
+        $dados['title'] = '';
+        if(!isset($mensagem)) $dados['mensagem'] = "";
+        if($this->session->userdata('adm') != 1){
+            redirect();
+        }
+
+        if($id_usuario){ //aprovar usuario
+            //pegando dados da tabela provisoria
+            $query = $this->m_any->get("aprovarUsuarios", null, null, null, null, null, "idUser", $id_usuario, "*");
+
+            //dados para inserir na tabela fixa
+            $dadosU['nome']             = $query->row('nome');
+            $dadosU['sobrenome']        = $query->row('sobrenome');
+            $dadosU['email']            = $query->row('email');
+            $dadosU['senha']            = $query->row('senha');
+            $dadosU['areaAtuacao']      = $query->row('areaAtuacao');
+            $dadosU['breveCurriculo']   = $query->row('bCurriculo');
+            $dadosU['codInstituicao']   = $query->row('codInstituicao');
+            $dadosU['adm']   = 0;
+
+            $this->m_any->store('usuarios', $dadosU); //armazenando dados do
+            $this->m_any->deleteWhere('idUser', $id_usuario, 'aprovarUsuarios'); //deletando usuario da tabela provisoria
+            $dados['mensagem'] = "Usuario deletado com sucesso !";
+            $this->template->load('templates/default', 'usuario/aprovar', $dados);
+
+        }else{  //pagina para listar usuarios
+            $dados['usuarios'] = $this->m_any->get("aprovarUsuarios", null, null, null, null, null);
+            $this->template->load('templates/default', 'usuario/aprovar', $dados);
+        }
+
+    }
+    public function deletarUsuario($id_user = null){
+        if(!$this->checarLogado()) redirect();
+        $dados['title'] = '';
+        if(!isset($mensagem)) $dados['mensagem'] = "";
+        if($this->session->userdata('adm') != 1){
+            redirect();
+        }
+        if($id_user){
+            $dados['mensagem'] = "Usuario deletado com sucesso !";
+            $this->m_any->deleteWhere('idUser', $id_user, 'aprovarUsuarios');
+            $this->template->load('templates/default', 'usuario/aprovar', $dados);
+        }else{
+
+        }
+    }
+    public function visualizarUsuario($id_usuario = null)
+    {
+        if(!$this->checarLogado()) redirect();
+        $dados['title'] = 'Aprovar Artefatos';
+        if(!isset($mensagem)) $dados['mensagem'] = "Aprovar artefatos";
+        if($this->session->userdata('adm') != 1){
+            redirect();
+        }
+        if($id_usuario){ //aprovar usuario
+            $dados['instUser'] = $this->m_any->getInstAluno($id_usuario);
+            $dados['usuario'] =$this->m_any->get("aprovarUsuarios", null, null, null, null, null, "idUser", $id_usuario, null);
+            $this->template->load('templates/default', 'usuario/visualizar', $dados);
+        }else{  //pagina para listar usuarios
+            $dados['usuarios'] = $this->m_any->get("aprovarUsuarios", null, null, null, null, null);
+            $this->template->load('templates/default', 'usuario/aprovar', $dados);
+        }
+    }
+
     // Realizar o logout
     public function logout()
     {
@@ -222,7 +288,7 @@ class Usuario extends CI_Controller
 
             $dados['codInstituicao'] = $valor[0]->idInstituicao;
 
-            $this->m_any->store('usuarios', $dados); //armazenando dados do cadastro do usuario
+            $this->m_any->store('aprovarUsuarios', $dados); //armazenando dados do cadastro do usuario
 
             $mensagem = "<h2 class=\"w3-text-green\"><b>Cadastro realizado com sucesso, efetue o login !</b></h2>";
             $dados['mensagem'] = $mensagem; //msg para view
