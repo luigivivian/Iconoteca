@@ -42,15 +42,7 @@
             <a href="<?php if(!isset($link)) echo base_url(); ?>#about" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i class="fa fa-globe fa-fw w3-margin-right"></i>SOBRE</a>
             <a href="<?php if(!isset($link)) echo base_url(); ?>#contact" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i class="fa fa-envelope fa-fw w3-margin-right"></i>CONTATO</a>
 
-        <?php if(!$this->session->has_userdata('logado')) { ?>
-            <a href="<?php if(!isset($link)) echo base_url('index.php/login'); ?>" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i class="fa fa-user-circle-o fa-fw w3-margin-right"></i>LOGIN</a>
-        <?php } else { ?>
-        <?php  if($this->session->userdata('adm') == 1) {?>
-            <a href="<?php if(!isset($link)) echo base_url('index.php/usuario/admin'); ?>" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i class="fa fa-cogs fa-fw w3-margin-right"></i>ADMNISTRAÇÃO</a>
-        <?php } ?>
-            <a href="<?php if(!isset($link)) echo base_url('index.php/conta'); ?>" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i class="fa fa-user-circle fa-fw w3-margin-right"></i>MINHA CONTA</a>
-            <a href="<?php if(!isset($link)) echo base_url('index.php/logout'); ?>" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i class="fa fa-sign-out fa-fw w3-margin-right"></i>LOGOUT</a>
-        <?php } ?>
+
 
             <button onclick="myFunction('parceiros')" class="w3-bar-item w3-button w3-padding"><i class="fa fa-wrench fa-fw w3-margin-right"></i>MANTENEDORES</button>
             <div id="parceiros" class="w3-container w3-hide">
@@ -59,6 +51,15 @@
                 <a href="<?php if(!isset($link)) echo base_url('index.php/mantenedores/nupha'); ?>" onclick="w3_close()" class="w3-bar-item w3-button"><i class="fa fa-wrench fa-fw w3-margin-right"></i>NUPAH</a>
                 <a href="<?php if(!isset($link)) echo base_url('index.php/mantenedores/nupha'); ?>" onclick="w3_close()" class="w3-bar-item w3-button"><i class="fa fa-wrench fa-fw w3-margin-right"></i>LACUMA</a>
             </div>
+            <?php if(!$this->session->has_userdata('logado')) { ?>
+                <a href="<?php if(!isset($link)) echo base_url('index.php/login'); ?>" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i class="fa fa-user-circle-o fa-fw w3-margin-right"></i>LOGIN</a>
+            <?php } else { ?>
+            <?php  if($this->session->userdata('adm') == 1) {?>
+                <a href="<?php if(!isset($link)) echo base_url('index.php/usuario/admin'); ?>" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i class="fa fa-cogs fa-fw w3-margin-right"></i>ADMNISTRAÇÃO</a>
+            <?php } ?>
+                <a href="<?php if(!isset($link)) echo base_url('index.php/conta'); ?>" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i class="fa fa-user-circle fa-fw w3-margin-right"></i>MINHA CONTA</a>
+                <a href="<?php if(!isset($link)) echo base_url('index.php/logout'); ?>" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i class="fa fa-sign-out fa-fw w3-margin-right"></i>LOGOUT</a>
+            <?php } ?>
 
         </div>
     </nav>

@@ -180,11 +180,13 @@
     function deletarImagens(){
         //alert($('#btnDel').val());
         var url = 'deletarimagens';
+        if(imagens.length < 1){
+            return;
+        }
         for (var i = 0; i < imagens.length; i++) {
             url = url + "/" + imagens[i];
         }
-        //alert(url);
-        window.location.href = '../' + url;
+        window.location.href = '../../../' + url;
 
     }
 </script>

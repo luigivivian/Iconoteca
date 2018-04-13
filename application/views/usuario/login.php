@@ -38,7 +38,7 @@
         <div class="w3-row">
             <div class="w3-container w3-center">
                 <div class="w3-row">
-                    <a href="<?php echo base_url('index.php/cadastro/')?>" class="w3-button w3-block w3-green w3-section w3-padding">Novo usuario? Cadastre-se !</a>
+                    <a href="<?php echo base_url('index.php/cadastro/')?>" class="w3-button w3-block w3-blue w3-section w3-padding">Novo usuario? Cadastre-se !</a>
                 </div>
                 <div class="w3-row w3-margin">
                         <a href="#" onclick="document.getElementById('recSenha').style.display='block'"><p class="w3-button, w3-text-dark-gray">Esqueci minha senha !</p></a>

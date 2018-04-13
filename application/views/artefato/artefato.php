@@ -53,11 +53,11 @@
                 <div class="w3-display-middlew3-margin-bottom">
                     <h2>Modelo 3d indisponivel</h2>
                 </div>
-                <div class="w3-col s12 w3-margin-top w3-margin-bottom w3-display-container">
-                    <div class="w3-content w3-display-container">
+                <div class="w3-margin-top w3-margin-bottom w3-display-container" style="width: 100%;">
+                    <div class="w3-display-container">
                         <?php foreach ($pictures->result() as $pic): ?>
                             <div class="mySlides">
-                                <img src="<?= base_url('assets/imagens/artefatos/' .$pic->nomeImagem)?>" style="width:100%; height: 450px; ">
+                                <img src="<?= base_url('assets/imagens/artefatos/' .$pic->nomeImagem)?>" style="width:100%; height: 550px; ">
                             </div>
                         <?php endforeach; ?>
                         <div class="w3-center w3-container w3-section w3-large w3-text-white w3-display-middle" style="width:100%">
@@ -128,14 +128,14 @@
             <div>
             </div>
         <?php }else{ ?>
-            <div class="w3-display-middlew3-margin-bottom">
+            <div class="w3-margin-bottom">
                 <h2>Imagens</h2>
             </div>
-            <div class="w3-col s12 w3-margin-top w3-margin-bottom w3-display-container">
-                <div class="w3-content w3-display-container">
+            <div class="w3-margin-top w3-margin-bottom ">
+                <div class="w3-display-container">
                     <?php foreach ($pictures->result() as $pic): ?>
                         <div class="mySlides">
-                            <img src="<?= base_url('assets/imagens/artefatos/' .$pic->nomeImagem)?>" style="width:100%; height: 450px; ">
+                            <img src="<?= base_url('assets/imagens/artefatos/' .$pic->nomeImagem)?>" style="width:100%; height: 550px; ">
                         </div>
                     <?php endforeach; ?>
                     <div class="w3-center w3-container w3-section w3-large w3-text-white w3-display-middle" style="width:100%">
@@ -162,55 +162,108 @@
     </div>
 
     <?php if(isset($aprovar) && $aprovar == TRUE){ ?>
-        <div class="w3-margin-top">
-            <?= anchor(base_url("index.php/artefato/aprovarArtefato/$id"), "Aprovar", array('class' => "w3-button w3-green w3-hover-std-green w3-block w3-large")) ?>
+        <div class="w3-row w3-margin-top w3-margin-bottom">
+            <div class="w3-margin-top w3-col s6">
+                <button onclick="document.getElementById('aprovarMod').style.display='block'" class="w3-button w3-green w3-hover-std-green w3-block w3-xxlarge">Aprovar</button>
+                <!-- <?= anchor(base_url("index.php/artefato/aprovarArtefato/$id"), "Aprovar", array('class' => "w3-button w3-green w3-hover-std-green w3-block w3-xxlarge")) ?> -->
+            </div>
+            <div class="w3-margin-top w3-col s6">
+                <button onclick="document.getElementById('excluirMod').style.display='block'" class="w3-button w3-red w3-hover-std-green w3-block w3-xxlarge">Excluir</button>
+                <!-- <?= anchor(base_url("index.php/artefato/deletarArtefato/$id"), "Deletar", array('class' => "w3-button w3-red w3-hover-std-green w3-block w3-xxlarge")) ?> -->
+            </div>
         </div>
-        <div class="w3-margin-top">
-            <?= anchor(base_url("index.php/artefato/deletarArtefato/$id"), "Deletar", array('class' => "w3-button w3-red w3-hover-std-green w3-block w3-large")) ?>
-        </div>
-
-
-    <?php } ?>
-    <div class="w3-margin-top w3-margin-bottom w3-display-container" id="outrosArtefatos">
-        <div class="textOutrosArtefatos w3-margin-top w3-panel w3-pale-red">
-            <h2 class="w3-center">Outros artefatos</h2>
-        </div>
-
-        <?php foreach ($slides->result() as $slide): ?>
-            <div class="w3-row slides w3-margin-top">
-                <div class="w3-col s6 container">
-                        <img src="<?= base_url('assets/imagens/icones/'.$slide->icone)?>" style="width: 100%; height: 450px;"class="image fotosArtefatos">
-                        <div class="middle">
-                          <a class="w3-button w3-green" href="<?= base_url('index.php/artefato/'.$slide->idArtefato); ?>"><i class="fa fa-eye fa-fw"></i>Ver artefato</a>
+        <div id="excluirMod" class="w3-modal">
+            <div class="w3-modal-content">
+                <header class="w3-container w3-red">
+                    <span onclick="document.getElementById('excluirMod').style.display='none'"
+                    class="w3-button w3-display-topright">&times;</span>
+                    <h2>Deseja realmente excluir esse artefato ?</h2>
+                    <h4>Atenção: Essa operação não podera ser desfeita</h4>
+                </header>
+                <div class="w3-container">
+                    <div class="w3-row w3-margin-bottom w3-margin-top">
+                        <div class="w3-col s6">
+                            <?= anchor(base_url("index.php/artefato/deletarArtefato/$id"), "Confirmar Exclusão", array('class' => "w3-button w3-green w3-hover-std-green w3-block w3-xxlarge")) ?>
                         </div>
-                </div>
-                <div class="w3-col s6 w3-margin-top">
-                    <!--  Div da descricao-->
-                    <div class="w3-row w3-margin-top">
-                        <div class="w3-col s2 w3-center"><p></p></div>
-                        <div class="w3-col s8 w3-center w3-margin-top">
-                            <div class="fotosArtefatos">
-                                <h2><?= $slide->nome?></h2>
-                                <h3><?= $slide->categoria?></h3>
-                                <h4><?= $slide->shortDesc?></h4>
-
-                                <h5>Designação: <?php echo $slide->designacao ?></h5>
-                                <h5>Procedência: <?php echo $slide->procedencia ?></h5>
-                                <h5>Dimensões: <?php echo $slide->dimensoes ?> CM</h5>
-                                <h5>Material: <?php echo $slide->material ?></h5>
-                            </div>
+                        <div class="w3-col s6">
+                            <button onclick="document.getElementById('excluirMod').style.display='none'" class="w3-button w3-red w3-hover-std-green w3-block w3-xxlarge">Cancelar</button>
                         </div>
-                        <div class="w3-col s2 w3-center"><p></p></div>
                     </div>
                 </div>
             </div>
+        </div>
+        <div id="aprovarMod" class="w3-modal">
+            <div class="w3-modal-content">
+                <header class="w3-container w3-green">
+                    <span onclick="document.getElementById('aprovarMod').style.display='none'"
+                    class="w3-button w3-display-topright">&times;</span>
+                    <h2>Deseja realmente aprovar esse artefato ?</h2>
+                </header>
+                <div class="w3-container">
+                    <div class="w3-row w3-margin-bottom w3-margin-top">
+                        <div class="w3-col s6">
+                            <?= anchor(base_url("index.php/artefato/aprovarArtefato/$id"), "Confirmar Aprovação", array('class' => "w3-button w3-green w3-hover-std-green w3-block w3-xxlarge")) ?>
+                        </div>
+                        <div class="w3-col s6">
+                            <button onclick="document.getElementById('aprovarMod').style.display='none'" class="w3-button w3-red w3-hover-std-green w3-block w3-xxlarge">Cancelar</button>
+                        </div>
+                </div>
+            </div>
+        </div>
 
-        <?php endforeach; ?>
+    <?php } ?>
 
-        <button class="w3-button w3-black w3-display-left" onclick="plusDivs(-1)">&#10094;</button>
-        <button class="w3-button w3-black w3-display-right" onclick="plusDivs(1)">&#10095;</button>
+    <?php if(!isset($aprovar) || $aprovar == FALSE){ ?>
+    <div class="w3-container w3-border w3-border-grey w3-margin-top w3-margin-bottom w3-white w3-leftbar w3-rightbar w3-topbar w3-bottombar">
 
+        <div class="w3-margin-top w3-margin-bottom w3-display-container" id="outrosArtefatos">
+            <div class="textOutrosArtefatos w3-margin-top">
+                <h2 class="w3-center">Outros artefatos</h2>
+            </div>
+            <?php foreach ($slides->result() as $slide): ?>
+                <div class="w3-row slides w3-margin-top">
+                    <div class="w3-col s6 container">
+                            <img src="<?= base_url('assets/imagens/icones/'.$slide->icone)?>" style="width: 100%; height: 450px;"class="image fotosArtefatos">
+                            <div class="middle">
+                              <a class="w3-button w3-green" href="<?= base_url('index.php/artefato/'.$slide->idArtefato); ?>"><i class="fa fa-eye fa-fw"></i>Ver artefato</a>
+                            </div>
+                    </div>
+                    <div class="w3-col s6 w3-margin-top">
+                        <!--  Div da descricao-->
+                        <div class="w3-row w3-margin-top">
+
+                            <div class="w3-col s1"><p></p></div>
+
+                            <div class="w3-col s10">
+                                <div class="fotosArtefatos">
+                                    <h2><?= $slide->nome?></h2>
+                                    <h3><?= $slide->categoria?></h3>
+                                    <h4><?= $slide->shortDesc?></h4>
+
+                                    <h4>Designação: <?php echo $slide->designacao ?></h4>
+                                    <h4>Procedência: <?php echo $slide->procedencia ?></h4>
+                                    <h4>Dimensões: <?php echo $slide->dimensoes ?> CM</h4>
+                                    <h4>Material: <?php echo $slide->material ?></h4>
+                                </div>
+                            </div>
+                            <div class="w3-col s1"><p></p></div>
+                        </div>
+                    </div>
+                </div>
+
+            <?php endforeach; ?>
+
+            <button class="w3-button w3-black w3-display-left" onclick="plusDivs(-1)">&#10094;</button>
+            <button class="w3-button w3-black w3-display-right" onclick="plusDivs(1)">&#10095;</button>
+
+        </div>
     </div>
+
+<?php }else{ ?>
+    <div class="w3-margin-top w3-margin-bottom w3-display-container" id="fantstamOutrosArtefatos">
+            <div class="w3-row slides w3-margin-top">
+            </div>
+<?php } ?>
 
     <div id="modal01" class="w3-modal" onclick="this.style.display='none'">
         <span class="w3-button w3-red w3-hover-std-red w3-xlarge w3-display-topright">&times;</span>
