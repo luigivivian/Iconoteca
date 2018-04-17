@@ -38,7 +38,7 @@
                         <td><h3 style="padding-top: 22px;"><?= $ar->nome ?></h3></td>
                         <td>
                             <div style="padding-top: 27px;">
-                            <?= anchor(base_url("index.php/artefato/visualizar/$ar->idArtefato"), "<i class='fa fa-search-plus fa-2x'></i>", array('class' => "w3-button w3-blue w3-hover-std-blue w3-block w3-small")) ?>
+                            <?= anchor(base_url("index.php/artefato/visualizar/$ar->idArtefato"), "<i class='fa fa-search-plus fa-2x'></i>", array('target' => '_blank', 'class' => "w3-button w3-blue w3-hover-std-blue w3-block w3-small")) ?>
                             </div>
                         </td>
 

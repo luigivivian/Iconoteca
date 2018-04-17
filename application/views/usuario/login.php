@@ -8,7 +8,7 @@
     <?php if(isset($mensagem)): ?>
         <div class="w3-row">
             <div class="w3-container">
-                <?= $mensagem ?>
+                  <?= $mensagem ?>
             </div>
         </div>
     <?php endif; ?>

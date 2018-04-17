@@ -43,7 +43,7 @@
 
                     <td>
                         <div style="padding-top: 27px;">
-                            <?= anchor(base_url("index.php/artefato/$ar->idArtefato"), "<i class='fa fa-search-plus fa-2x'></i>", array('class' => "w3-button w3-green w3-hover-std-green w3-block w3-medium")) ?>
+                            <?= anchor(base_url("index.php/artefato/$ar->idArtefato"), "<i class='fa fa-search-plus fa-2x'></i>", array('target' => '_blank', 'class' => "w3-button w3-green w3-hover-std-green w3-block w3-medium")) ?>
                         </div>
 
                     </td>
@@ -56,7 +56,7 @@
                                     $pag = $this->uri->segment(4);
                                 }
                              ?>
-                            <?= anchor(base_url("index.php/artefato/editar/p/".$pag."/$ar->idArtefato"), "<i class='fa fa-edit fa-2x'></i>", array('class' => "w3-button w3-blue w3-hover-std-blue w3-block w3-medium")) ?>
+                            <?= anchor(base_url("index.php/artefato/editar/p/".$pag."/$ar->idArtefato"), "<i class='fa fa-edit fa-2x'></i>", array('target' => '_blank', 'class' => "w3-button w3-blue w3-hover-std-blue w3-block w3-medium")) ?>
                         </div>
                     </td>
                 </tr>

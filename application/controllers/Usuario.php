@@ -40,7 +40,7 @@ class Usuario extends CI_Controller
         }
         else
         {
-            $mensagem = "<h4 class=\"w3-text-red\"><b>Nome de usuário ou senha incorretos!</b></h4>";
+            $mensagem = "<div class=\"w3-panel w3-red\"><h4 class=\"w3-text-white\"><b>Nome de usuário ou senha incorretos!</b></h4></div>";
             $this->index($mensagem);
         }
     }
@@ -170,7 +170,7 @@ class Usuario extends CI_Controller
         $this->template->load('templates/default', 'usuario/cadastro', $dados);
     }
 
-    public function efetuar_cadastro_inst()
+    public function dastro_inst()
     {
         $this->load->library('form_validation');
         $rules = array(
@@ -290,8 +290,9 @@ class Usuario extends CI_Controller
 
             $this->m_any->store('aprovarUsuarios', $dados); //armazenando dados do cadastro do usuario
 
-            $mensagem = "<h2 class=\"w3-text-green\"><b>Cadastro realizado com sucesso, efetue o login !</b></h2>";
+            $mensagem = "<div class=\"w3-panel w3-green\"><h4 class=\"w3-text-white\"><b>Cadastro efetuado com sucesso !</b></h4></div>";
             $dados['mensagem'] = $mensagem; //msg para view
+
             $this->template->load('templates/default', 'usuario/login', $dados); //carregando view
         }
     }
