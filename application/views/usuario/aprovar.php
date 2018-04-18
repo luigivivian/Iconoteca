@@ -19,45 +19,31 @@
             <h3>Selecione um usuario</h3>
         </div>
 <!--            card testes-->
-
-<!--           Fim card -->
-        <div class="w3-responsive">
-            <table class="w3-table-all">
-                <thead>
-                    <tr class="w3-black">
-                        <th>Nome</th>
-                        <th>Sobrenome</th>
-                        <th>Email</th>
-                        <th>Area Atuação</th>
-                        <th class="w3-center">Visualizar</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php foreach($usuarios->result() as $user): ?>
-                    <tr>
-                        <td>
-                            <h4><?= $user->nome ?></h4>
-                        </td>
-
-                        <td>
-                            <h4><?= $user->sobrenome ?></h4>
-                        </td>
-                        <td>
-                            <h4><?= $user->email ?></h4>
-                        </td>
-                        <td>
-                            <h4><?= $user->areaAtuacao ?></h4>
-                        </td>
-                        <td>
+             <div class="w3-row w3-margin-left">
+                <?php
+                    $cont = 0;
+                    foreach($usuarios->result() as $user):
+                        $cont++;
+                        if($cont > 3) {
+                            $cont = 0;
+                            echo '<div class="w3-margin-top w3-row" style="margin-top: 5px;"> <br></div >';
+                        }
+                ?>
+                <div class="w3-card-4 w3-dark-grey w3-margin-left w3-margin-bottom" style="width:31%; float: left;">
+                    <div class="w3-container w3-center ">
+                        <h3><?=$user->nome?> <?=$user->sobrenome?></h3>
+                        <img src="../../assets/imagens/mantenedores/user1.png" alt="Avatar" style="width:80%">
+                            <h5><?=$user->areaAtuacao?></h5>
+                        <div class="w3-section">
                             <?= anchor(base_url("index.php/usuario/visualizarUsuario/$user->idUser"), "<i class='fa fa-search-plus fa-2x'></i>", array('class' => "w3-button w3-blue w3-hover-std-blue w3-block w3-small")) ?>
-                        </td>
 
-                    </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
+                        </div>
+                    </div>
+                </div>
 
-        </div>
+                <?php endforeach; ?>
+            </div>
+<!--           Fim card -->
 
     <?php } ?>
 <?php } ?>

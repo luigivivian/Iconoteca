@@ -25,7 +25,7 @@
         <a href="<?= base_url('index.php/artefato/aprovarArtefato'); ?>" class="w3-button w3-green w3-block w3-hover-border-color">Aprovar Artefatos</a>
     </div>
     <div class="w3-margin-top">
-        <a href="<?= base_url('index.php/usuario/aprovarUsuarios'); ?>" class="w3-button w3-green w3-block w3-hover-border-color">Aprovar Usuarios</a>
+        <a href="<?= base_url('index.php/usuario/aprovarUsuarios'); ?>" class="w3-button w3-blue w3-block w3-hover-border-color">Aprovar Usuarios</a>
     </div>
     </div>
   </div>

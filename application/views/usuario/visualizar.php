@@ -1,10 +1,10 @@
 <div class="w3-container">
     <div class="">
         <div class="w3-margin-top">
-            <h2 class="w3-center">Usuario:</h2>
+            <h2 class="w3-center">Dados Pessoais</h2>
         </div>
-        <div class="" style="margin-top: 100px; ">
-            <table class="w3-table w3-bordered w3-striped">
+        <div class="" style="margin-top: 50px; ">
+            <table class="w3-table w3-bordered w3-striped w3-table-all">
                 <tr>
                   <th>Nome completo</th>
                   <th>Email</th>
