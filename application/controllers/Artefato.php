@@ -385,7 +385,7 @@ class Artefato extends CI_Controller
     }
 
     public function aprovarArtefato($id_artefato = null, $mensagem = null){
-        if(!$this->checarLogado()) redirect();
+        if(!$this->checarLogado()) redirect('index.php/usuario/adm');
         $dados['title'] = 'Aprovar Artefatos';
         if(!isset($mensagem)) $dados['mensagem'] = "Aprovar artefatos";
         if($this->session->userdata('adm') != 1){

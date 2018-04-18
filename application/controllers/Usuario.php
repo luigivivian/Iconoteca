@@ -10,11 +10,20 @@ class Usuario extends CI_Controller
         if($mensagem) $dados['mensagem'] = $mensagem;
         $this->template->load('templates/default', 'usuario/login', $dados);
     }
+    public function adm($mensagem = null){
+        $dados['title'] = "Área de login";
+        if($mensagem) $dados['mensagem'] = $mensagem;
+        $this->template->load('templates/default', 'usuario/login', $dados);
+    }
 
     // Realizar o login
     public function login()
     {
         // Dados do formulário
+        $aprovarArtefatos = false;
+        if($this->uri->segment(3) == 'adm'){
+            $aprovarArtefatos = true;
+        }
         $email = $this->input->post('email');
         $senha    = md5($this->input->post('senha'));
         $query = $this->m_user->validarDados($email, $senha);
@@ -36,7 +45,12 @@ class Usuario extends CI_Controller
 				'logado' 	=> TRUE
 			);
 			$this->session->set_userdata($varSession);
-			$this->conta($mensagem);
+			if($aprovarArtefatos == true){
+                redirect('index.php/artefato/aprovarArtefato', 'refresh');
+            }else{
+                $this->conta($mensagem);
+            }
+
         }
         else
         {
