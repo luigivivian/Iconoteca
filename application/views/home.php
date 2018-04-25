@@ -86,10 +86,10 @@
                     </a>
                     <div class="w3-container w3-white">
                         <?php if($artefato->nomeArquivo == "nulo"){ ?>
-                            <p><b><?= $artefato->nome ?> </b> <i class="fa fa-eye-slash w3-xlarge"></i></p>
+                            <p class="w3-margin-top"><b><?= $artefato->nome ?> </b> <i class="fa fa-eye-slash w3-xlarge"></i></p>
                             <p><?= $artefato->shortDesc ?></p>
                         <?php }else{ ?>
-                            <p><b><?= $artefato->nome ?></b></p>
+                            <p class="w3-margin-top"><b><?= $artefato->nome ?></b></p>
                             <p><?= $artefato->shortDesc ?></p>
                         <?php } ?>
                     </div>
@@ -116,7 +116,6 @@
 <!-- About -->
 <div class="w3-container w3-border w3-border-grey w3-margin-top w3-white w3-topbar w3-bottombar">
     <div class="w3-container w3-padding-large" style="margin-bottom:32px" id="about">
-
         <h4><b>Sobre</b></h4>
         <p style="text-align: justify;">Lorem ipsum dolor sit amet, <strong>consectetur adipiscing</strong> elit. Maecenas facilisis ipsum sit amet augue dapibus finibus. Nunc nec purus erat. Vivamus facilisis molestie metus quis ornare. Ut vel turpis dolor. Nulla ipsum nunc, pulvinar eget libero et, dictum euismod lorem. Duis sodales, erat non lobortis ullamcorper, orci odio lobortis sapien, in dictum tortor erat ac tellus. Quisque non porta arcu. Integer tincidunt nisl vitae sollicitudin pretium. Vestibulum et viverra lorem, ac tempor ex. Cras sagittis pellentesque urna quis vulputate. Suspendisse nec odio posuere, tristique sem mattis, vestibulum orci. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
         <p style="text-align: justify;">Vestibulum et metus non odio semper laoreet id nec justo. Vestibulum non augue dictum, consequat dui quis, gravida nisi. Curabitur condimentum nisi lobortis ipsum eleifend mattis. Fusce efficitur leo ut nulla consectetur, vel vestibulum erat auctor. Cras tempus in nunc et egestas. Proin efficitur ligula a eros cursus pellentesque. Fusce dignissim commodo dolor in eleifend. Quisque vitae facilisis risus. <strong>Aenean et eleifend nunc. Maecenas pretium purus eget egestas efficitur.</strong> Nam malesuada ut lacus condimentum facilisis. Fusce luctus purus lectus, in rutrum eros fringilla at. Donec rhoncus quis ipsum congue egestas.</p>

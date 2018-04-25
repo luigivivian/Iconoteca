@@ -1,3 +1,12 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tokenfield/0.12.0/bootstrap-tokenfield.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tokenfield/0.12.0/css/bootstrap-tokenfield.min.css">
+
+
 <div class="w3-container">
     <!-- Título da página -->
     <div class="w3-row">
@@ -53,7 +62,6 @@
             </div>
 
 
-
             <div class="w3-row w3-section">
                 <!-- Categoria -->
                 <select class="w3-select w3-white w3-border" name="categoria" style="width: 55vw">
@@ -83,12 +91,18 @@
                 <textarea name="shortDesc" placeholder="Escreva uma breve descrição do artefato. Até 140 caracteres." maxlength="140" rows="2" style="width: 100%" required></textarea>
             </div>
 
+            <!--           TAGS -->
+            <div class="w3-row w3-section">
+                <input class="w3-input w3-border" name="tags" id="tags" style="width: 55vw" type="text" placeholder="Digite uma tag" maxlength="100" value="<?= set_value('tags') ?>" autofocus required>
+            </div>
+
             <!-- Descrição do artefato -->
             <div class="w3-row w3-section">
                 <textarea name="complDesc" id="editor" required>
                     <p>Escreva a descrição completa do artefato.</p>
                 </textarea>
             </div>
+
 
             <!-- Entrada do endereço do mapa -->
             <div class="w3-row w3-section">
@@ -118,3 +132,18 @@
         </div>
     </div>
 </div>
+
+<script>
+
+    $(document).ready(function(){
+        //autocomplete
+        $.noConflict();
+        $('#tags').tokenfield({
+            autocomplete:{
+                source: ['litico', 'ceramica'],
+                delay:50
+            },
+            showAutocompleteOnFocus: true
+        });
+    });
+</script>

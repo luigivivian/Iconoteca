@@ -1,7 +1,7 @@
 <div class="w3-container">
     <!-- Título da página -->
     <div class="w3-row">
-        <h1><b>Aprovar Usuarios</b></h1>
+        <h1><b>Aprovar Usuários</b></h1>
     </div>
 
     <?php if(isset($mensagem)): ?>
@@ -12,11 +12,11 @@
     <?php if(isset($usuarios)){ ?>
     <?php if($usuarios->num_rows() == 0) { ?>
         <div class="w3-row">
-            <h3>Nenhum usuario para ser aprovado !</h3>
+            <h3>Nenhum usuário para ser aprovado !</h3>
         </div>
     <?php } else { ?>
         <div class="w3-row">
-            <h3>Selecione um usuario</h3>
+            <h3>Selecione um usuário</h3>
         </div>
 <!--            card testes-->
              <div class="w3-row w3-margin-left">
@@ -29,14 +29,13 @@
                             echo '<div class="w3-margin-top w3-row" style="margin-top: 5px;"> <br></div >';
                         }
                 ?>
-                <div class="w3-card-4 w3-dark-grey w3-margin-left w3-margin-bottom" style="width:31%; float: left;">
-                    <div class="w3-container w3-center ">
+                <div class="w3-card-4 w3-dark-grey w3-display-container w3-margin-left w3-margin-bottom" style="width:31%; height: 400px;float: left;">
+                    <div class="w3-container w3-center">
                         <h3><?=$user->nome?> <?=$user->sobrenome?></h3>
-                        <img src="../../assets/imagens/mantenedores/user1.png" alt="Avatar" style="width:80%">
+                            <p><?=$user->breveCurriculo?></p>
                             <h5><?=$user->areaAtuacao?></h5>
-                        <div class="w3-section">
-                            <?= anchor(base_url("index.php/usuario/visualizarUsuario/$user->idUser"), "<i class='fa fa-search-plus fa-2x'></i>", array('class' => "w3-button w3-blue w3-hover-std-blue w3-block w3-small")) ?>
-
+                        <div class="w3-section w3-display-bottommiddle">
+                            <?= anchor(base_url("index.php/usuario/visualizarUsuario/$user->idUser"), "<i class='fa fa-search-plus fa-2x'>  Ver   </i>", array('class' => "w3-button w3-blue w3-hover-std-blue w3-block w3-small")) ?>
                         </div>
                     </div>
                 </div>

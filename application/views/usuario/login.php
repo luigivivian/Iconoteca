@@ -5,8 +5,6 @@
             <h1><b>Área de Login</b></h1>
         </div>
 
-        <?php echo $this->uri->segment(2);?>
-
     <?php if(isset($mensagem)): ?>
         <div class="w3-row">
             <div class="w3-container">

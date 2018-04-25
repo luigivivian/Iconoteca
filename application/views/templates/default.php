@@ -44,12 +44,12 @@
 
 
 
-            <button onclick="myFunction('parceiros')" class="w3-bar-item w3-button w3-padding"><i class="fa fa-wrench fa-fw w3-margin-right"></i>MANTENEDORES</button>
-            <div id="parceiros" class="w3-container w3-hide">
-                <a href="<?php if(!isset($link)) echo base_url('index.php/mantenedores/fabricasoft'); ?>" onclick="w3_close()" class="w3-bar-item w3-button"><i class="fa fa-wrench fa-fw w3-margin-right"></i>FABRICA DE SOFTWARE</a>
-                <a href="<?php if(!isset($link)) echo base_url('index.php/mantenedores/ppgh'); ?>" onclick="w3_close()" class="w3-bar-item w3-button"><i class="fa fa-wrench fa-fw w3-margin-right"></i>PPGH</a>
-                <a href="<?php if(!isset($link)) echo base_url('index.php/mantenedores/nupha'); ?>" onclick="w3_close()" class="w3-bar-item w3-button"><i class="fa fa-wrench fa-fw w3-margin-right"></i>NUPAH</a>
-                <a href="<?php if(!isset($link)) echo base_url('index.php/mantenedores/nupha'); ?>" onclick="w3_close()" class="w3-bar-item w3-button"><i class="fa fa-wrench fa-fw w3-margin-right"></i>LACUMA</a>
+            <button class="w3-bar-item w3-button w3-padding"><i class="fa fa-wrench fa-fw w3-margin-right"></i>MANTENEDORES</button>
+            <div id="parceiros" class="w3-container w3-show">
+                <a href="<?php if(!isset($link)) echo base_url('index.php/mantenedores/fabricasoft'); ?>" onclick="w3_close()" class="w3-bar-item w3-button"><i class="fa fa-circle fa-fw w3-tiny w3-margin-right"></i>FABRICA DE SOFTWARE</a>
+                <a href="<?php if(!isset($link)) echo base_url('index.php/mantenedores/ppgh'); ?>" onclick="w3_close()" class="w3-bar-item w3-button"><i class="fa fa-circle fa-fw w3-tiny w3-margin-right"></i>PPGH</a>
+                <a href="<?php if(!isset($link)) echo base_url('index.php/mantenedores/nupha'); ?>" onclick="w3_close()" class="w3-bar-item w3-button"><i class="fa fa-circle fa-fw w3-tiny w3-margin-right"></i>NUPHA</a>
+                <a href="<?php if(!isset($link)) echo base_url('index.php/mantenedores/nupha'); ?>" onclick="w3_close()" class="w3-bar-item w3-button"><i class="fa fa-circle fa-fw w3-tiny w3-margin-right"></i>LACUMA</a>
             </div>
             <?php if(!$this->session->has_userdata('logado')) { ?>
                 <a href="<?php if(!isset($link)) echo base_url('index.php/login'); ?>" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i class="fa fa-user-circle-o fa-fw w3-margin-right"></i>LOGIN</a>
@@ -129,6 +129,15 @@
         }
     </script>
     <script src="<?= base_url('assets/js/jquery-3.2.1.min.js') ?>"></script>
+<!--teste-->
+
+<!--   Teste -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tokenfield/0.12.0/css/bootstrap-tokenfield.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tokenfield/0.12.0/bootstrap-tokenfield.js"></script>
 
 <?php if(isset($paginaArtefato) && $paginaArtefato) { ?>
     <!-- Script da animação do loading do Artefato -->

@@ -37,6 +37,12 @@ class M_any extends CI_Model
                                 ON usuarios.idUser = artefatos.idOwner
                                 WHERE artefatos.idOwner = $id");
     }
+    public function getTagsArtefato($id){
+        return $this->db->query("SELECT *
+                                FROM tags_artefatos ta INNER JOIN tags t
+                                ON ta.codTag = t.id
+                                WHERE ta.codArtefato = $id;");
+    }
 
     public function getInstAluno($id){
         return $this->db->query("SELECT i.nome
@@ -97,5 +103,9 @@ class M_any extends CI_Model
     public function store($table, $dados)
     {
         $this->db->insert($table, $dados);
+    }
+
+    public function getTag($tag){
+        return $this->db->query("SELECT * FROM tags WHERE nome = '$tag'");
     }
 }

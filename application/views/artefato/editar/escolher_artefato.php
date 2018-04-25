@@ -33,22 +33,22 @@
                 <?php foreach($artefatos->result() as $ar): ?>
                 <tr>
                     <td class="w3-left">
-                        <img src="<?= base_url('assets/imagens/icones/'.$ar->icone)?>" style="width: 100px; height: 100px;">
+                        <img src="<?= base_url('assets/imagens/icones/'.$ar->icone)?>" style="max-width: 150px; max-height: 150px; width: auto; height: auto;">
                     </td>
                     <td class="w3-left">
-                        <h3 style="padding-top: 22px;">
+                        <h3 style="padding-top: 15px;">
                             <?= $ar->nome ?>
                         </h3>
                     </td>
 
                     <td>
-                        <div style="padding-top: 27px;">
+                        <div style="padding-top: 20px;">
                             <?= anchor(base_url("index.php/artefato/$ar->idArtefato"), "<i class='fa fa-search-plus fa-2x'></i>", array('target' => '_blank', 'class' => "w3-button w3-green w3-hover-std-green w3-block w3-medium")) ?>
                         </div>
 
                     </td>
                     <td>
-                        <div style="padding-top: 27px;">
+                        <div style="padding-top: 20px;">
                             <?php
                                 if($this->uri->segment(4) == null){
                                     $pag = 1;

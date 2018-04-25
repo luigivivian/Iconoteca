@@ -304,7 +304,7 @@ class Usuario extends CI_Controller
 
             $this->m_any->store('aprovarUsuarios', $dados); //armazenando dados do cadastro do usuario
 
-            $mensagem = "<div class=\"w3-panel w3-green\"><h4 class=\"w3-text-white\"><b>Cadastro efetuado com sucesso !</b></h4></div>";
+            $mensagem = "<div class=\"w3-panel w3-green\"><h4 class=\"w3-text-white\"><b><i class=\"w3-xlarge fa fa-check\"></i> Aviso !</b></h4><p><b><i class=\"w3-large fa fa-caret-right\"></i> Cadastro efetuado com sucesso !</b></p></div>";
             $dados['mensagem'] = $mensagem; //msg para view
 
             $this->template->load('templates/default', 'usuario/login', $dados); //carregando view

@@ -32,12 +32,12 @@
                     <?php foreach($artefatos->result() as $ar): ?>
                     <tr>
                         <td class="w3-left">
-                            <img src="<?= base_url('assets/imagens/icones/'.$ar->icone)?>" style="width: 100px; height: 100px;">
+                            <img src="<?= base_url('assets/imagens/icones/'.$ar->icone)?>" style="max-width: 150px; max-height: 150px; width: auto; height: auto;">
                         </td>
 
-                        <td><h3 style="padding-top: 22px;"><?= $ar->nome ?></h3></td>
+                        <td><h3 style="padding-top: 15px;"><?= $ar->nome ?></h3></td>
                         <td>
-                            <div style="padding-top: 27px;">
+                            <div style="padding-top: 20px;">
                             <?= anchor(base_url("index.php/artefato/visualizar/$ar->idArtefato"), "<i class='fa fa-search-plus fa-2x'></i>", array('target' => '_blank', 'class' => "w3-button w3-blue w3-hover-std-blue w3-block w3-small")) ?>
                             </div>
                         </td>

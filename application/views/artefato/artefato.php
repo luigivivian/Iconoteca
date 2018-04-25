@@ -120,6 +120,18 @@
         <h4>Procedência: <?php echo $procedencia ?></h4>
         <h4>Dimensões: <?php echo $dimensoes ?> CM</h4>
         <h4>Material: <?php echo $material ?></h4>
+        <h4>Tags:</h4>
+        <?php $tg = "";?>
+        <?php foreach($tag->result() as $t){?>
+            <?php
+                    if($tag->num_rows() > 1){
+                        $tg = '<span class="w3-tag w3-teal">'.$t->nome.'</span>' .' '.$tg;
+                    }else{
+                        $tg = "" . '<span class="w3-tag w3-teal">'.$t->nome.'</span>';
+                    }
+            ?>
+        <?php }?>
+        <p><?= $tg ?></p>
     </div>
 
     <!--  Slides imagens-->
@@ -183,10 +195,10 @@
                 <div class="w3-container">
                     <div class="w3-row w3-margin-bottom w3-margin-top">
                         <div class="w3-col s6">
-                            <?= anchor(base_url("index.php/artefato/deletarArtefato/$id"), "Confirmar Exclusão", array('class' => "w3-button w3-green w3-hover-std-green w3-block w3-xxlarge")) ?>
+                            <?= anchor(base_url("index.php/artefato/deletarArtefato/$id"), "Confirmar Exclusão", array('class' => "w3-button w3-green w3-hover-std-green w3-block w3-large")) ?>
                         </div>
                         <div class="w3-col s6">
-                            <button onclick="document.getElementById('excluirMod').style.display='none'" class="w3-button w3-red w3-hover-std-green w3-block w3-xxlarge">Cancelar</button>
+                            <button onclick="document.getElementById('excluirMod').style.display='none'" class="w3-button w3-red w3-hover-std-red w3-block w3-large">Cancelar</button>
                         </div>
                     </div>
                 </div>
@@ -202,10 +214,10 @@
                 <div class="w3-container">
                     <div class="w3-row w3-margin-bottom w3-margin-top">
                         <div class="w3-col s6">
-                            <?= anchor(base_url("index.php/artefato/aprovarArtefato/$id"), "Confirmar Aprovação", array('class' => "w3-button w3-green w3-hover-std-green w3-block w3-xxlarge")) ?>
+                            <?= anchor(base_url("index.php/artefato/aprovarArtefato/$id"), "Confirmar Aprovação", array('class' => "w3-button w3-green w3-hover-std-green w3-block w3-large")) ?>
                         </div>
                         <div class="w3-col s6">
-                            <button onclick="document.getElementById('aprovarMod').style.display='none'" class="w3-button w3-red w3-hover-std-green w3-block w3-xxlarge">Cancelar</button>
+                            <button onclick="document.getElementById('aprovarMod').style.display='none'" class="w3-button w3-red w3-hover-std-red w3-block w3-large">Cancelar</button>
                         </div>
                 </div>
             </div>
@@ -244,6 +256,8 @@
                                     <h4>Procedência: <?php echo $slide->procedencia ?></h4>
                                     <h4>Dimensões: <?php echo $slide->dimensoes ?> CM</h4>
                                     <h4>Material: <?php echo $slide->material ?></h4>
+
+
                                 </div>
                             </div>
                             <div class="w3-col s1"><p></p></div>

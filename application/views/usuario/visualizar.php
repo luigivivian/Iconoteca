@@ -3,27 +3,21 @@
         <div class="w3-margin-top">
             <h2 class="w3-center">Dados Pessoais</h2>
         </div>
-        <div class="" style="margin-top: 50px; ">
-            <table class="w3-table w3-bordered w3-striped w3-table-all">
-                <tr>
-                  <th>Nome completo</th>
-                  <th>Email</th>
-                  <th>Area Atuação</th>
-                  <th>Instituição</th>
-                </tr>
-                <tr>
-                  <td><?= $usuario->row('nome') ?> <?= $usuario->row('sobrenome') ?></td>
-                  <td><?= $usuario->row('email') ?></td>
-                  <td><?= $usuario->row('areaAtuacao') ?></td>
-                  <td><?= $instUser->row('nome') ?></td>
-                </tr>
-            </table>
+        <div class="w3-container w3-border w3-border-grey w3-margin-top w3-white w3-topbar w3-bottombar">
+            <div class="w3-container w3-margin-top">
+                <h5>Nome:</h5>
+                <p class="w3-margin-left"><?= $usuario->row('nome') ?> <?= $usuario->row('sobrenome') ?></p>
+                <h5>Email:</h5>
+                <p class="w3-margin-left"><?= $usuario->row('email') ?></p>
+                <h5>Área de atuação:</h5>
+                <p class="w3-margin-left"><?= $usuario->row('areaAtuacao') ?></p>
+                <h5>Instituição:</h5>
+                <p class="w3-margin-left"><?= $instUser->row('nome') ?></p>
+                <h5>Breve Curriculo:</h5>
+                <p class="w3-margin-left"><?= $usuario->row('breveCurriculo') ?></p>
+            </div>
         </div>
 
-        <div class="w3-container w3-margin-top w3-border-bottom w3-border-top w3-border-left w3-border-right">
-            <h5>Breve Curriculo:</h5>
-            <p class="w3-margin-left"><?= $usuario->row('breveCurriculo') ?></p>
-        </div>
             <div style="margin-top: 100px;" class="row">
                 <div class="w3-margin-top w3-col s6">
                     <?= anchor(base_url("index.php/usuario/aprovarUsuarios/".$usuario->row('idUser')), "Aprovar Usuario", array('class' => "w3-button w3-green w3-hover-std-green w3-block w3-xlarge")) ?>

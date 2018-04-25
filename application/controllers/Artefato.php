@@ -30,6 +30,7 @@ class Artefato extends CI_Controller
             $dados['title'] = $dados['nomeArtefato'] . " - Iconoteca";
             $dados['paginaArtefato'] = TRUE;
             $dados['slides'] = $this->m_any->getImgs();
+            $dados['tag'] = $this->m_any->getTagsArtefato($id);
 
             $this->template->load('templates/default', 'artefato/artefato', $dados);
         }else{// Artefato inexistente 2
@@ -60,10 +61,11 @@ class Artefato extends CI_Controller
                 'aprovar'   => TRUE,
                 'id' => $id
             );
-
+            $dados['tag'] = $this->m_any->getTagsArtefato($id);
             $dados['title'] = $dados['nomeArtefato'] . " - Iconoteca";
             $dados['paginaArtefato'] = TRUE;
             $dados['slides'] = $this->m_any->getImgs();
+
 
             $this->template->load('templates/default', 'artefato/artefato', $dados);
     }
@@ -266,9 +268,49 @@ class Artefato extends CI_Controller
                 "procedencia"  => $this->input->post('procedencia'),
                 "dimensoes"  => $this->input->post('dimensoes'),
                 "material"  => $this->input->post('material')
-
             );
             $this->m_any->store("aprovarArtefatos", $dados);
+            $getIDArtefato = $this->m_any->get("aprovarArtefatos", null, null, null, null, null, "nome", $this->input->post('nome'), "idArtefato")->row()->idArtefato;            //registrando as tags no banco provisorio
+            $tags = $this->input->post('tags'); //pegando string inteira
+            $tg = array(); //declarando matriz para separar a string inteira
+            $linha = 0; //controle das linhas
+            $coluna = 0; //controle das colunas
+            for ($i = 0; $i < strlen($tags); $i++) { //separando tags uma a uma da string inteira (tag1, tag2, tagExemplo3)
+                if($tags[$i] == " "){//espaço na string
+                    continue;
+                }
+                if($tags[$i] == ","){ //achou virgula na string ou seja, uma nova tag a ser inserida na proxima linha da matriz.
+                    $linha++; //proxima linha
+                    $coluna = 0;
+                }else{
+                    $tg[$linha][$coluna] = $tags[$i]; //armazendo cada tag em uma linha da matriz $tg
+                    $coluna++;
+                }
+            }
+            $tag = "";
+            for ($i = 0; $i < count($tg); $i++) { //pegando tags da matriz
+                $tag = "";
+                for ($j = 0; $j < count($tg[$i]); $j++) {
+                    $tag = $tag . $tg[$i][$j]; //concatenando letra por letra(coluna) da matriz de tags
+                }
+                //efetuar insert tag
+                $dadosTag = array( //dados da tag a ser inserida.
+                    "nome"  => $tag
+                );
+                $query = $this->m_any->getTag($tag);
+                if($query->num_rows() > 0){ //já exite uma tag com esse nome
+                    $idTag = $query->row('id');
+                }else{  //não existe tag com esse nome, adicionar a lista de tags
+                    $this->m_any->store("tags", $dadosTag);
+                    $query = $this->m_any->getTag($tag);
+                    $idTag = $query->row('id');
+                }
+                $dadosTags = array( //dados da tag a ser inserida.
+                    "codTag" => $idTag,
+                    "codArtefato"  =>  $getIDArtefato
+                );
+                $this->m_any->store("tags_artefatosAP", $dadosTags);
+            }
 
             // Registra as imagens no DB
             $config['upload_path']      = 'assets/imagens/artefatos';
@@ -331,11 +373,8 @@ class Artefato extends CI_Controller
             redirect('index.php/conta');
         }
     }
-    public function teste(){
-        $dados['adms'] = $this->m_any->getADM();
-        $dados['teste'] = base_url('artefato/aprovarArtefato');
-        $this->template->load('templates/default', 'teste', $dados);
-    }
+
+
 
     // Função de callback para validar a extensão do arquivo STL no método editar_run
     public function checa_arquivo_artefato_editar()
@@ -380,8 +419,6 @@ class Artefato extends CI_Controller
                 redirect('index.php/artefato/aprovarArtefato/');
             }
         }
-
-
     }
 
     public function aprovarArtefato($id_artefato = null, $mensagem = null){
@@ -422,8 +459,16 @@ class Artefato extends CI_Controller
                     "dimensoes"   => $dados['artefato']->row('dimensoes'),
                     "material"    => $dados['artefato']->row('material')
                 );
-
                 $this->m_any->store("artefatos", $dadosArtefato); //armazenando dados do artefato na tabela definitiva
+                $getTags = $this->m_any->get("tags_artefatosAP", null, null, null, null, null, null, null, "*");
+                foreach($getTags->result() as $v){
+                    $tags = array(
+                        "codTag" => $v->codTag,
+                        "codArtefato" => $id
+                    );
+                    $this->m_any->store("tags_artefatos", $tags); //armazenando tags do artefato na tabela definitiva
+                    $this->m_any->deleteWhere("codArtefato", $id_artefato, "tags_artefatosAP"); //deletando das tabelas provisorias
+                }
                 //pegando imagens provisorias para aprovação
                 $dados['imagensAp'] = $this->m_any->get("imagensAprovar", null, null, null, null, null, "idIcone", $id_artefato, "idIcone, nomeImagem");
 
