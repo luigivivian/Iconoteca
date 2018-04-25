@@ -415,6 +415,7 @@ class Artefato extends CI_Controller
             {
                 $dados['title'] = 'Aprovar Artefatos';
                 if(!isset($mensagem)) $dados['mensagem'] = "Artefato deletado com sucesso !";
+                $this->m_any->deleteWhere("codArtefato", $id_artefato, "tags_artefatosAP");
                 $this->m_any->deleteWhere("idArtefato", $id_artefato, "aprovarArtefatos");
                 redirect('index.php/artefato/aprovarArtefato/');
             }
