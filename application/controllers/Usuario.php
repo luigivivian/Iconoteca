@@ -103,7 +103,7 @@ class Usuario extends CI_Controller
     }
 
     public function aprovarUsuarios($id_usuario = null, $mensagem = null){
-        if(!$this->checarLogado()) redirect();
+        if(!$this->checarLogado() || $this->session->userdata('adm') != 1) redirect();
         $dados['title'] = '';
         if(!isset($mensagem)) $dados['mensagem'] = "";
         if($this->session->userdata('adm') != 1){
@@ -136,7 +136,7 @@ class Usuario extends CI_Controller
 
     }
     public function deletarUsuario($id_user = null){
-        if(!$this->checarLogado()) redirect();
+        if(!$this->checarLogado() || $this->session->userdata('adm') != 1) redirect();
         $dados['title'] = '';
         if(!isset($mensagem)) $dados['mensagem'] = "";
         if($this->session->userdata('adm') != 1){
@@ -152,7 +152,7 @@ class Usuario extends CI_Controller
     }
     public function visualizarUsuario($id_usuario = null)
     {
-        if(!$this->checarLogado()) redirect();
+        if(!$this->checarLogado() || $this->session->userdata('adm') != 1) redirect();
         $dados['title'] = 'Aprovar Artefatos';
         if(!isset($mensagem)) $dados['mensagem'] = "Aprovar artefatos";
         if($this->session->userdata('adm') != 1){
@@ -184,7 +184,7 @@ class Usuario extends CI_Controller
         $this->template->load('templates/default', 'usuario/cadastro', $dados);
     }
 
-    public function dastro_inst()
+    public function castro_inst()
     {
         $this->load->library('form_validation');
         $rules = array(
@@ -218,6 +218,8 @@ class Usuario extends CI_Controller
             $this->cadastro();
         else
         {
+
+
             $dados['nome']       = $this->input->post('nome');
             $dados['cidade']  = $this->input->post('cidade');
             $dados['estado']      = $this->input->post('estado');
@@ -225,12 +227,13 @@ class Usuario extends CI_Controller
 
             $this->m_any->store('instituicoes', $dados);
 
+
             $msg = "<h2 class=\"w3-text-green\"><b>Cadastro de instituição realizado com sucesso !</b></h2>";
             $dados['mensagem'] = $msg;
             $dados['title'] = "Cadastrar usuário";
             $dados['universidades'] = $this->m_any->getInst();
             $this->template->load('templates/default', 'usuario/cadastro', $dados);
-            redirect('index.php/cadastro', 'refresh');
+            //redirect('index.php/cadastro', 'refresh');
         }
     }
 

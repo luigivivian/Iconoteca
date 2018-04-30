@@ -71,7 +71,7 @@
                     <div class="w3-row w3-section">
                         <div class="w3-col" style="width:50px"><i class="w3-xxlarge fa fa-graduation-cap"></i></div>
                         <div class="w3-rest">
-                            <select class="w3-select" name="instituicao">
+                            <select class="w3-select" id="instList" name="instituicao">
                                 <option value="" disabled selected>Selecione sua instituição !</option>
                                 <?php foreach ($universidades->result() as $v): ?>
                                     <option value="<?php echo $v->nome; ?>" ><?php echo $v->nome; ?></option>
@@ -102,30 +102,30 @@
                             <div class="w3-row w3-section">
                                 <div class="w3-col" style="width:50px"><i class="w3-xxlarge fa fa-user"></i></div>
                                 <div class="w3-rest">
-                                    <input class="w3-input w3-border" name="nome" type="text" placeholder="Digite o nome de sua instituição" required autofocus>
+                                    <input class="w3-input w3-border" id="inputNome" name="nome" type="text" placeholder="Digite o nome de sua instituição" required autofocus>
                                 </div>
                             </div>
 
                             <div class="w3-row w3-section">
                                 <div class="w3-col" style="width:50px"><i class="w3-xxlarge fa fa-location-arrow"></i></div>
                                 <div class="w3-rest">
-                                    <input class="w3-input w3-border" name="cidade" type="text" placeholder="Digite a cidade de sua instituição" required autofocus>
+                                    <input class="w3-input w3-border" id="inputCidade" name="cidade" type="text" placeholder="Digite a cidade de sua instituição" required autofocus>
                                 </div>
                             </div>
                             <div class="w3-row w3-section">
                                 <div class="w3-col" style="width:50px"><i class="w3-xxlarge fa fa-location-arrow"></i></div>
                                 <div class="w3-rest">
-                                    <input class="w3-input w3-border" name="estado" type="text" placeholder="Digite o estado de sua instituição" required autofocus>
+                                    <input class="w3-input w3-border" id="inputEstado" name="estado" type="text" placeholder="Digite o estado de sua instituição" required autofocus>
                                 </div>
                             </div>
 
                             <div class="w3-row w3-section">
                                 <div class="w3-col" style="width:50px"><i class="w3-xxlarge fa fa-location-arrow"></i></div>
                                 <div class="w3-rest">
-                                    <input class="w3-input w3-border" name="pais" type="text" placeholder="Digite o pais de sua instituição" required autofocus>
+                                    <input class="w3-input w3-border" id="inputPais" name="pais" type="text" placeholder="Digite o pais de sua instituição" required autofocus>
                                 </div>
                             </div>
-                            <button class="w3-button w3-block w3-green w3-section w3-padding" type="submit">Cadastrar</button>
+                                <button id="btn_saveinst" class="w3-button w3-block w3-green w3-section w3-padding" type="button">Cadastrar</button>
                             <?= form_close() ?>
                         </div>
                     </div>
@@ -140,6 +140,54 @@
 <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.17.0/dist/jquery.validate.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.17.0/dist/additional-methods.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.17.0/dist/additional-methods.min.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+            show_inst(); //call function show all product
+
+            //$('#mydata').dataTable();
+
+            //function show all product
+            function show_inst() {
+                $.ajax({
+                    type: 'ajax',
+                    url: '<?php echo base_url('index.php/AjaxUsuario/getAllInst')?>',
+                    async: false,
+                    dataType: 'JSON',
+                    success: function (data) {
+                        var html = '';
+                        var i;
+                        for (i = 0; i < data.length; i++) {
+                            html += '<option value=\"'+data[i].nome+'\">'+data[i].nome+'</option>';
+                        }
+                        $('#instList').html(html);
+                    }
+                });
+            }
+
+
+            //Save product
+            $('#btn_saveinst').on('click', function () {
+                var nome = $('#inputNome').val();
+                var cidade = $('#inputCidade').val();
+                var estado = $('#inputEstado').val();
+                var pais = $('#inputPais').val();
+                $.ajax({
+                    type: "POST",
+                    url: "<?php echo base_url('index.php/AjaxUsuario/salvarInst')?>",
+                    dataType: "JSON",
+                    data: {nome: nome, cidade: cidade, estado: estado, pais: pais},
+                    success: function (data) {
+                        show_inst();
+                        alert('Insituição cadastrada com sucesso !');
+                        document.getElementById('cadInst').style.display='none'
+                    }
+                });
+                return false;
+            });
+        }
+    );
+</script>
 <script type="text/javascript">
 $('#formCadastro').validate({
     // Define as regras
