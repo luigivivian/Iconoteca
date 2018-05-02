@@ -43,6 +43,15 @@ class M_any extends CI_Model
                                 ON ta.codTag = t.id
                                 WHERE ta.codArtefato = $id;");
     }
+    public function getAnexos($id){
+        return $this->db->query("SELECT an.nome
+                                FROM anexos an INNER JOIN artefatos at
+                                ON an.codigoArtefato = at.idArtefato
+                                WHERE at.idArtefato = $id;");
+    }
+    public function trocarIDAnexo($de, $para){
+        $this->db->query("UPDATE anexos SET codigoArtefato = $para WHERE codigoArtefato = $de;");
+    }
 
     public function getInstAluno($id){
         return $this->db->query("SELECT i.nome

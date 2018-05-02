@@ -48,6 +48,10 @@
             <div class="w3-row w3-section">
                 <input class="w3-input w3-border" style="width: 55vw" name="dimensoes" type="text" placeholder="Dimensões do artefato (largura X altura X espessura) ex: (5 X 10 X 3)" maxlength="100" value="<?= $artefato->dimensoes ?>" autofocus required>
             </div>
+
+            <div class="w3-row w3-section">
+                <input class="w3-input w3-border" style="width: 55vw" name="acervo" type="text" placeholder="Digite sobre o acervo do artefato" maxlength="100" value="<?= $artefato->acervo ?>" autofocus required>
+            </div>
             <!-- Categoria -->
             <div class="w3-row w3-section">
                 <select class="w3-select w3-white w3-border" name="categoria" style="width: 55vw">
@@ -110,10 +114,6 @@
                   <button onclick="deletarImagens();" type="button" class="w3-button w3-margin-top w3-margin-bottom w3-small w3-block w3-red">Remover</button>
              </div>
             </div>
-
-
-
-
 
 
             <!-- Descrição do artefato no portfólio -->

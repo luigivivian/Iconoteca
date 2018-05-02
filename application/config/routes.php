@@ -24,6 +24,7 @@ $route['cadastro']            = 'usuario/cadastro';
 $route['recuperar']           = 'usuario/recuperarSenha';
 $route['cadastrar']           = 'usuario/efetuar_cadastro';
 $route['cadinst']             = 'usuario/castro_inst';
+$route['cadVisitante']        = 'usuario/castro_visitante';
 $route['logout']              = 'usuario/logout';
 $route['conta']               = 'usuario/conta';
 $route['conta/desativar']     = 'usuario/desativar_conta';

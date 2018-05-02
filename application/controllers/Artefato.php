@@ -24,7 +24,8 @@ class Artefato extends CI_Controller
                 'designacao'  =>  $artefato->designacao,
                 'procedencia'  => $artefato->procedencia,
                 'dimensoes'  => $artefato->dimensoes,
-                'material'  => $artefato->material
+                'material'  => $artefato->material,
+                'anexo' => $this->m_any->getAnexos($id)
             );
 
             $dados['title'] = $dados['nomeArtefato'] . " - Iconoteca";
@@ -87,6 +88,10 @@ class Artefato extends CI_Controller
         $local = 'assets/modelos/'.$arq; //local dos arquivos
         force_download($local, null); // executando download no browser
     }
+    public function downloadAnexo($arq){
+        $local = 'assets/anexos/'.$arq;
+        force_download($local, null);
+    }
     // Abre a view da página de inserção de artefato
     public function adicionar()
     {
@@ -127,6 +132,19 @@ class Artefato extends CI_Controller
             if($ext !== 'png' && $ext !== 'jpg') return false;
         }
 
+        return true;
+    }
+    // Função de callback para validar as extensões dos anexos
+    public function checa_anexos()
+    {
+        if($_FILES['anexos']['name'][0] === '') return true;
+
+        $numAnexos = sizeof($_FILES['anexos']['name']);
+        for($i = 0; $i < $numAnexos; $i++)
+        {
+            $ext = strtolower(pathinfo($_FILES['anexos']['name'][$i], PATHINFO_EXTENSION));
+            if($ext !== 'pdf') return false;
+        }
         return true;
     }
 
@@ -172,6 +190,11 @@ class Artefato extends CI_Controller
                 'rules' => 'required|max_length[140]'
             ),
             array(
+                'field' => 'acervo',
+                'label' => 'breve descricao do acervo do artefato',
+                'rules' => 'required|max_length[140]'
+            ),
+            array(
                 'field' => 'complDesc',
                 'label' => 'descrição completa do artefato',
                 'rules' => 'required|max_length[65536]'
@@ -200,6 +223,11 @@ class Artefato extends CI_Controller
                 'field' => 'imagens[]',
                 'label' => 'imagens do artefato',
                 'rules' => 'callback_checa_imagens'
+            ),
+            array(
+                'field' => 'anexos[]',
+                'label' => 'anexos do artefato',
+                'rules' => 'callback_checa_anexos'
             )
         );
 
@@ -207,6 +235,7 @@ class Artefato extends CI_Controller
         $this->form_validation->set_message('checa_arquivo_artefato', 'Modelo do artefato inválido. O arquivo deve ser <b>stl</b>.');
         $this->form_validation->set_message('checa_arquivo_icone', 'Ícone do artefato inválido. O arquivo deve ser <b>png</b> ou <b>jpg</b>.');
         $this->form_validation->set_message('checa_imagens', 'Imagens do artefato inválidas. As imagens devem ser <b>png</b> ou <b>jpg</b>.');
+        $this->form_validation->set_message('checa_anexos', 'anexos do artefato inválidos. Os anexos devem ser  <b>pdf</b>.');
         $this->form_validation->set_message('min_length', 'O campo nome do artefato deve ter pelo menos 8 caracteres.');
 
         if($this->form_validation->run() == FALSE)
@@ -253,6 +282,9 @@ class Artefato extends CI_Controller
             $filedata   = $this->upload->data();
             $nomeIcone  = $filedata['file_name']; // Nome do icone para adicionar ao DB
 
+
+
+
             // Registra o artefato no DB
             $dados = array(
                 "nome"        => $this->input->post('nome'),
@@ -267,7 +299,8 @@ class Artefato extends CI_Controller
                 "designacao"  => $this->input->post('designacao'),
                 "procedencia"  => $this->input->post('procedencia'),
                 "dimensoes"  => $this->input->post('dimensoes'),
-                "material"  => $this->input->post('material')
+                "material"  => $this->input->post('material'),
+                "acervo"  => $this->input->post('acervo')
             );
             $this->m_any->store("aprovarArtefatos", $dados);
             $getIDArtefato = $this->m_any->get("aprovarArtefatos", null, null, null, null, null, "nome", $this->input->post('nome'), "idArtefato")->row()->idArtefato;            //registrando as tags no banco provisorio
@@ -320,7 +353,7 @@ class Artefato extends CI_Controller
 
             $dados = array();
             $dados['idIcone'] = $this->m_any->get("aprovarArtefatos", null, null, null, null, null, "nomeArquivo", $nomeArquivo, "idArtefato")->row()->idArtefato;
-            echo $dados['idIcone'];
+
             $numImagens = count($_FILES['imagens']['name']);
             $imagens    = $_FILES['imagens'];
             if($_FILES['imagens']['name'][0] !== '')
@@ -342,6 +375,44 @@ class Artefato extends CI_Controller
                     $this->m_any->store("imagensAprovar", $dados);
                 }
             }
+            $config = array();
+            $config['upload_path']      = 'assets/anexos';
+            $config['allowed_types']    = "pdf|PDF";
+            $config['file_ext_tolower'] = TRUE;
+            $config['encrypt_name']     = TRUE;
+
+            $dados = array();
+            $getIDArtefato = $this->m_any->get("aprovarArtefatos", null, null, null, null, null, "nome", $this->input->post('nome'), "idArtefato")->row()->idArtefato;            //registrando as tags no banco provisorio
+
+            //upar anexos artefatos e insere no banco de dados
+            $numAnexos = count($_FILES['anexos']['name']);
+            $anexo    = $_FILES['anexos'];
+
+            if($_FILES['anexos']['name'][0] !== '')
+            {
+                for($i = 0; $i < $numAnexos; $i++)
+                {
+                    $_FILES['anexo']['name']     = $anexo['name'][$i];
+                    $_FILES['anexo']['type']     = $anexo['type'][$i];
+                    $_FILES['anexo']['tmp_name'] = $anexo['tmp_name'][$i];
+                    $_FILES['anexo']['error']    = $anexo['error'][$i];
+                    $_FILES['anexo']['size']     = $anexo['size'][$i];
+
+                    var_dump($_FILES['anexo']);
+                    $this->upload->initialize($config, true);
+                    $this->upload->do_upload('anexo');
+
+                    $filedata = $this->upload->data();
+
+
+                    $dados['nome'] = $filedata['file_name'];
+                    $dados['codigoArtefato'] = $getIDArtefato;
+
+                    $this->m_any->store("anexos", $dados);
+                }
+            }
+
+
             //Enviar email para administradores
             $adms = $this->m_any->getADM();
 
@@ -458,7 +529,8 @@ class Artefato extends CI_Controller
                     "designacao"  => $dados['artefato']->row('designacao'),
                     "procedencia" => $dados['artefato']->row('procedencia'),
                     "dimensoes"   => $dados['artefato']->row('dimensoes'),
-                    "material"    => $dados['artefato']->row('material')
+                    "material"    => $dados['artefato']->row('material'),
+                    "acervo"      => $dados['artefato']->row('acervo')
                 );
                 $this->m_any->store("artefatos", $dadosArtefato); //armazenando dados do artefato na tabela definitiva
                 $getTags = $this->m_any->get("tags_artefatosAP", null, null, null, null, null, null, null, "*");
@@ -482,6 +554,23 @@ class Artefato extends CI_Controller
                     $this->m_any->deleteWhere("nomeImagem", $row->nomeImagem, "imagensAprovar"); //deletando imagens da tabela de aprovação
                 }
                 $this->m_any->deleteWhere("idArtefato", $dados['artefato']->row('idArtefato'), "aprovarArtefatos"); //deletando artefato da tabela provisoria
+                $this->m_any->trocarIDAnexo($id_artefato, $id);
+                //Enviar email para "visitantes" que possuem email para notificações ativados
+                $visitantes = $this->m_user->getVisitantes();
+                foreach ($visitantes->result() as $v){
+                    $email = $v->email;
+                    $email = $this->input->post('email');
+                    $this->load->library('email');
+                    $this->email->from('iconotecaUPF@upf.br', 'UPF-Iconoteca');
+                    $this->email->to($email);
+                    $this->email->subject('Novo artefato adicionado !');
+                    $this->email->message("==================Iconoteca==================
+                                        \nOlá, um novo artefato foi adicionado, para visualizar visite:
+                                        \nhttp://177.67.253.148/~iconoteca/
+                                        \n============================================
+                            ");
+                    $result = $this->email->send();
+                }
 
                 $dados['mensagem'] = "<h3 class=\"w3-text-green\"><b>Artefato aprovado com sucesso !</b></h3>";
                 $this->template->load('templates/default', 'artefato/aprovar', $dados);
@@ -706,7 +795,8 @@ class Artefato extends CI_Controller
                 "designacao"  => $this->input->post('designacao'),
                 "procedencia"  => $this->input->post('procedencia'),
                 "dimensoes"  => $this->input->post('dimensoes'),
-                "material"  => $this->input->post('material')
+                "material"  => $this->input->post('material'),
+                "acervo"     => $this->input->post('acervo')
             );
 
             // $this->m_any->store("artefatos", $dados);

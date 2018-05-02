@@ -236,7 +236,57 @@ class Usuario extends CI_Controller
             //redirect('index.php/cadastro', 'refresh');
         }
     }
+    public function castro_visitante()
+    {
+        $this->load->library('form_validation');
+        $rules = array(
+            array(
+                'field' => 'nome',
+                'label' => 'nome',
+                'rules' => 'required|max_length[40]'
+            ),
+            array(
+                'field' => 'email',
+                'label' => 'email',
+                'rules' => 'required|max_length[40]'
+            ),
+        );
 
+        $this->form_validation->set_rules($rules);
+        $this->form_validation->set_message('min_length', 'O campo deve ter pelo menos 8 caracteres.');
+        $this->form_validation->set_message('min_length', 'Preencha todos os campos.');
+
+        if($this->form_validation->run() == FALSE) {
+            $msg = "<div class=\"w3-panel w3-red\"><h4 class=\"w3-text-white\"><b><i class=\"w3-xlarge fa fa-check\"></i> Aviso !</b></h4><p><b><i class=\"w3-large fa fa-caret-right\"></i> Erro ao cadastrar, verifique os campos.</b></p></div>";
+            $dados['mensagem'] = $msg;
+            $dados['title'] = "Inicio";
+            $this->template->load('templates/default', 'usuario/login', $dados);
+        }else
+        {
+            
+            $dados['nome']       = $this->input->post('nome');
+            $dados['email']  = $this->input->post('email');
+            $q = $this->m_user->validarEmailVisitantes($this->input->post('email'));
+            if($q->num_rows() > 0){
+                $msg = "<div class=\"w3-panel w3-red\"><h4 class=\"w3-text-white\"><b><i class=\"w3-xlarge fa fa-check\"></i> Aviso !</b></h4><p><b><i class=\"w3-large fa fa-caret-right\"></i> Email já existente, utilize outro endereço !</b></p></div>";
+                $dados['mensagem'] = $msg;
+                $dados['title'] = "Inicio";
+                $this->template->load('templates/default', 'usuario/login', $dados);
+            }else{
+
+                $this->m_any->store('visitantes', $dados);
+
+
+                $msg = "<div class=\"w3-panel w3-green\"><h4 class=\"w3-text-white\"><b><i class=\"w3-xlarge fa fa-check\"></i> Aviso !</b></h4><p><b><i class=\"w3-large fa fa-caret-right\"></i> Email cadastrado com sucesso !</b></p></div>";
+
+                $dados['mensagem'] = $msg;
+                $dados['title'] = "Inicio";
+                $this->template->load('templates/default', 'usuario/login', $dados);
+                //redirect('index.php/cadastro', 'refresh');
+            }
+
+        }
+    }
     // Validar e realizar o cadastro
     public function efetuar_cadastro()
     {
@@ -279,6 +329,11 @@ class Usuario extends CI_Controller
                 'rules' => 'required|min_length[4]'
             ),
             array(
+                'field' => 'notificar',
+                'label' => 'Receber notificacoes de administradores',
+                'rules' => 'required'
+            ),
+            array(
                 'field' => 'instituicao',
                 'label' => 'instituicao',
                 'rules' => 'required'
@@ -299,7 +354,7 @@ class Usuario extends CI_Controller
             $dados['senha']      = md5($this->input->post('senha'));
             $dados['areaAtuacao']      = $this->input->post('areaAtuacao');
             $dados['breveCurriculo']      = $this->input->post('bCurriculo');
-
+            $dados['notificar'] = $this->input->post('notificar');
             $variable = $this->m_any->getInstCod($this->input->post('instituicao')); //pegando valor da lista
             $valor = $variable->result(); //pegando o valor retornado do banco de dados
 

@@ -60,7 +60,10 @@
             <div class="w3-row w3-section">
                 <input class="w3-input w3-border" style="width: 55vw" name="dimensoes" type="text" placeholder="Dimensões do artefato (largura X altura X espessura) ex: (5 X 10 X 3)" maxlength="100" value="<?= set_value('dimensoes') ?>" autofocus required>
             </div>
-
+<!--           acervo -->
+            <div class="w3-row w3-section">
+                <input class="w3-input w3-border" style="width: 55vw" name="acervo" type="text" placeholder="Digite sobre o acervo do artefato" maxlength="100" value="<?= set_value('acervo') ?>" autofocus required>
+            </div>
 
             <div class="w3-row w3-section">
                 <!-- Categoria -->
@@ -86,14 +89,18 @@
                 <input type="file" id="inputFotos" name="imagens[]" multiple>
             </div>
 
-            <!-- Descrição do artefato no portfólio -->
             <div class="w3-row w3-section">
-                <textarea name="shortDesc" placeholder="Escreva uma breve descrição do artefato. Até 140 caracteres." maxlength="140" rows="2" style="width: 100%" required></textarea>
+                <input type="file" id="inputAnexos" name="anexos[]" multiple>
             </div>
 
             <!--           TAGS -->
             <div class="w3-row w3-section">
                 <input class="w3-input w3-border" name="tags" id="tags" style="width: 55vw" type="text" placeholder="Digite uma tag" maxlength="100" value="<?= set_value('tags') ?>" autofocus required>
+            </div>
+
+            <!-- Descrição do artefato no portfólio -->
+            <div class="w3-row w3-section">
+                <textarea name="shortDesc" placeholder="Escreva uma breve descrição do artefato. Até 140 caracteres." maxlength="140" rows="2" style="width: 100%" required></textarea>
             </div>
 
             <!-- Descrição do artefato -->

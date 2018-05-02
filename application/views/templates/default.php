@@ -209,11 +209,19 @@
 
         $('#inputFotos').jfilestyle({
             text: 'Selecionar imagens',
-            placeholder: '<?php if(!isset($paginaEditArtefato)) { ?>Selecione as imagens do artefato (opcional)<?php } else { ?>Selecioen as imagens que deseja adicionar (opcional)<?php } ?>',
+            placeholder: '<?php if(!isset($paginaEditArtefato)) { ?>Selecione as imagens do artefato (opcional)<?php } else { ?>Selecione as imagens que deseja adicionar (opcional)<?php } ?>',
             dragdrop: true,
             theme: 'green',
             inputSize: '55vw'
         });
+        $('#inputAnexos').jfilestyle({
+            text: 'Selecionar anexos',
+            placeholder: '<?php if(!isset($paginaEditArtefato)) { ?>Selecione anexos para o artefato (opcional)<?php } else { ?>Selecione os anexos que deseja adicionar (opcional)<?php } ?>',
+            dragdrop: true,
+            theme: 'green',
+            inputSize: '55vw'
+        });
+
     </script>
 
     <!-- Inicia o CKEditor -->

@@ -68,7 +68,8 @@
                         </div>
                     </div>
 
-                    <div class="w3-row w3-section">
+
+                    <div class="w3-row w3-section text-center">
                         <div class="w3-col" style="width:50px"><i class="w3-xxlarge fa fa-graduation-cap"></i></div>
                         <div class="w3-rest">
                             <select class="w3-select" id="instList" name="instituicao">
@@ -81,6 +82,16 @@
                         <a href="#" onclick="document.getElementById('cadInst').style.display='block'"><p class="w3-button, w3-text-dark-gray">Sua instituição não esta na lista? cadastre aqui !</p></a>
                     </div>
 
+
+<!--                Notificações?-->
+                    <div class="w3-row w3-section text-center">
+                        <h5>Deseja receber notificações de administradores?</h5>
+                        <input class="w3-radio" type="radio" name="notificar" value="1" checked>
+                        <label>Sim</label>
+
+                        <input class="w3-radio" type="radio" name="notificar" value="0">
+                        <label>Não</label>
+                    </div>
                     <button class="w3-button w3-block w3-green w3-section w3-padding" type="submit">Cadastrar</button>
 
                     <?= form_close() ?>
@@ -88,7 +99,6 @@
 
         </div>
         <div class="w3-row w3-margin">
-
             <div id="cadInst" class="w3-modal">
                 <div class="w3-modal-content">
                     <header class="w3-container w3-green">
@@ -132,6 +142,8 @@
                 </div>
             </div>
         </div>
+
+
     </div>
     <div class="w3-col" style="width:12%"><br></div>
 </div>
@@ -143,11 +155,8 @@
 
 <script type="text/javascript">
     $(document).ready(function() {
-            show_inst(); //call function show all product
+            show_inst();
 
-            //$('#mydata').dataTable();
-
-            //function show all product
             function show_inst() {
                 $.ajax({
                     type: 'ajax',

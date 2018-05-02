@@ -13,6 +13,12 @@ class M_user extends CI_Model
     {
         return $this->db->get_where('usuarios', array('email' => $email));
     }
+    public function getVisitantes(){
+        return $this->db->query("SELECT * FROM visitantes;");
+    }
+    public function validarEmailVisitantes($email){
+        return $this->db->get_where('visitantes', array('email' => $email));
+    }
 
 
 }
