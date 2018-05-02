@@ -133,7 +133,7 @@
             <h4>Anexos:</h4>
             <?php foreach($anexo->result() as $v){ ?>
                 <a href="<?= base_url('index.php/artefato/downloadAnexo/'.$v->nome)?>">Anexo <?= $cont?></a>
-            <?php } $cont++;?>
+            <?php $cont++;} ?>
         <?php }?>
     </div>
 

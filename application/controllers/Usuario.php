@@ -263,7 +263,7 @@ class Usuario extends CI_Controller
             $this->template->load('templates/default', 'usuario/login', $dados);
         }else
         {
-            
+
             $dados['nome']       = $this->input->post('nome');
             $dados['email']  = $this->input->post('email');
             $q = $this->m_user->validarEmailVisitantes($this->input->post('email'));

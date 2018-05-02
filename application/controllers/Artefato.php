@@ -418,13 +418,12 @@ class Artefato extends CI_Controller
 
             foreach ($adms->result() as $admin) {
 
-                $email = $this->input->post('email');
                 $this->load->library('email');
                 $this->email->from('iconotecaUPF@upf.br', 'UPF-Iconoteca');
                 $this->email->to($admin->email);
                 $this->email->subject('Aprovar Artefato');
 
-                $query = $this->m_user->validarEmail($email);
+
                 $nomeEnvio = $this->session->userdata('nome') ." ".$this->session->userdata('sobrenome');
 
                 $this->email->message("==================Iconoteca==================
@@ -556,19 +555,19 @@ class Artefato extends CI_Controller
                 $this->m_any->deleteWhere("idArtefato", $dados['artefato']->row('idArtefato'), "aprovarArtefatos"); //deletando artefato da tabela provisoria
                 $this->m_any->trocarIDAnexo($id_artefato, $id);
                 //Enviar email para "visitantes" que possuem email para notificações ativados
+
                 $visitantes = $this->m_user->getVisitantes();
                 foreach ($visitantes->result() as $v){
-                    $email = $v->email;
-                    $email = $this->input->post('email');
                     $this->load->library('email');
                     $this->email->from('iconotecaUPF@upf.br', 'UPF-Iconoteca');
-                    $this->email->to($email);
+                    $this->email->to($v->email);
                     $this->email->subject('Novo artefato adicionado !');
+
                     $this->email->message("==================Iconoteca==================
-                                        \nOlá, um novo artefato foi adicionado, para visualizar visite:
+                                        \nOlá, um novo artefato foi adicionado, acesse:
                                         \nhttp://177.67.253.148/~iconoteca/
                                         \n============================================
-                            ");
+                    ");
                     $result = $this->email->send();
                 }
 
