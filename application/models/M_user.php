@@ -19,6 +19,13 @@ class M_user extends CI_Model
     public function validarEmailVisitantes($email){
         return $this->db->get_where('visitantes', array('email' => $email));
     }
-
+    public function verificarStatus($email){
+        return $this->db->get_where('visitantes', array('email' => $email));
+    }
+    public function ativarEmail($email){
+        $this->db->set('status', 1);
+        $this->db->where('email', $email);
+        $this->db->update('visitantes');
+    }
 
 }

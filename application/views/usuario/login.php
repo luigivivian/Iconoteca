@@ -82,6 +82,18 @@
                                     <input class="w3-input w3-border" id="inputEmail" name="email" type="email" placeholder="Digite o email que deseja receber as notificações !" required autofocus>
                                 </div>
                             </div>
+                            <div class="w3-row w3-section">
+                                <div class="w3-col" style="width:50px"><i class="w3-xxlarge fa fa-location-arrow"></i></div>
+                                <div class="w3-rest">
+                                    <input class="w3-input w3-border" id="inputCidade" name="cidade" type="text" placeholder="Digite o nome da sua cidade !" required autofocus>
+                                </div>
+                            </div>
+                            <div class="w3-row w3-section">
+                                <div class="w3-col" style="width:50px"><i class="w3-xxlarge fa fa-location-arrow"></i></div>
+                                <div class="w3-rest">
+                                    <input class="w3-input w3-border" id="inputPais" name="pais" type="text" placeholder="Digite o nome do seu pais !" required autofocus>
+                                </div>
+                            </div>
 
                             <button id="btn_saveVisitante" class="w3-button w3-block w3-green w3-section w3-padding" type="submit">Cadastrar email</button>
                             <?= form_close() ?>

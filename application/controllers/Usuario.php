@@ -250,6 +250,16 @@ class Usuario extends CI_Controller
                 'label' => 'email',
                 'rules' => 'required|max_length[40]'
             ),
+            array(
+                'field' => 'pais',
+                'label' => 'pais',
+                'rules' => 'required|max_length[40]'
+            ),
+            array(
+                'field' => 'cidade',
+                'label' => 'cidade',
+                'rules' => 'required|max_length[40]'
+            ),
         );
 
         $this->form_validation->set_rules($rules);
@@ -261,22 +271,36 @@ class Usuario extends CI_Controller
             $dados['mensagem'] = $msg;
             $dados['title'] = "Inicio";
             $this->template->load('templates/default', 'usuario/login', $dados);
-        }else
-        {
-
+        }else {
             $dados['nome']       = $this->input->post('nome');
             $dados['email']  = $this->input->post('email');
+            $dados['cidade'] = $this->input->post('cidade');
+            $dados['pais'] = $this->input->post('pais');
+
+            $e = $this->input->post('email');
             $q = $this->m_user->validarEmailVisitantes($this->input->post('email'));
-            if($q->num_rows() > 0){
-                $msg = "<div class=\"w3-panel w3-red\"><h4 class=\"w3-text-white\"><b><i class=\"w3-xlarge fa fa-check\"></i> Aviso !</b></h4><p><b><i class=\"w3-large fa fa-caret-right\"></i> Email já existente, utilize outro endereço !</b></p></div>";
-                $dados['mensagem'] = $msg;
-                $dados['title'] = "Inicio";
-                $this->template->load('templates/default', 'usuario/login', $dados);
-            }else{
+            //Se o email que esta tentando ser cadastrado já existe com status desativado, ele ira ativar.
 
-                $this->m_any->store('visitantes', $dados);
+            if($q->num_rows() > 0){ //email já cadastrado
+                $verificar = $this->m_user->verificarStatus($e); //pegando status do email
+                if($verificar->row('status') == 0){ //email já cadastrado porem inativo, então ativar o email.
+                    $this->m_user->ativarEmail($e); //ativando email do usuario
 
+                    $msg = "<div class=\"w3-panel w3-green\"><h4 class=\"w3-text-white\"><b><i class=\"w3-xlarge fa fa-check\"></i> Aviso !</b></h4><p><b><i class=\"w3-large fa fa-caret-right\"></i> Esse email estava inativo e foi ativado !</b></p></div>";
 
+                    $dados['mensagem'] = $msg;
+                    $dados['title'] = "Inicio";
+                    $this->template->load('templates/default', 'usuario/login', $dados);
+                }else{ //caso o email já esteja cadastrado e o mesmo esta ativo
+                    $msg = "<div class=\"w3-panel w3-red\"><h4 class=\"w3-text-white\"><b><i class=\"w3-xlarge fa fa-check\"></i> Aviso !</b></h4><p><b><i class=\"w3-large fa fa-caret-right\"></i> Email já existente, utilize outro endereço !</b></p></div>";
+                    $dados['mensagem'] = $msg;
+                    $dados['title'] = "Inicio";
+                    $this->template->load('templates/default', 'usuario/login', $dados);
+                }
+
+            }else{ //email nao cadastrado
+
+                $this->m_any->store('visitantes', $dados); //cadastrando email
                 $msg = "<div class=\"w3-panel w3-green\"><h4 class=\"w3-text-white\"><b><i class=\"w3-xlarge fa fa-check\"></i> Aviso !</b></h4><p><b><i class=\"w3-large fa fa-caret-right\"></i> Email cadastrado com sucesso !</b></p></div>";
 
                 $dados['mensagem'] = $msg;
@@ -291,7 +315,7 @@ class Usuario extends CI_Controller
     public function efetuar_cadastro()
     {
         $this->load->library('form_validation');
-
+        //setando regras de validação do cadastro
         $rules = array(
             array(
                 'field' => 'nome',
@@ -339,7 +363,7 @@ class Usuario extends CI_Controller
                 'rules' => 'required'
             ),
         );
-
+        //setando mensagens de erro caso as validações nao funcionem
         $this->form_validation->set_rules($rules);
         $this->form_validation->set_message('min_length', 'O campo senha deve ter pelo menos 8 caracteres.');
         $this->form_validation->set_message('matches', 'Senha e confirmação de senha diferentes.');
@@ -348,6 +372,7 @@ class Usuario extends CI_Controller
             $this->cadastro();
         else
         {
+                //pegando dados dos inputs
             $dados['nome']       = $this->input->post('nome');
             $dados['sobrenome']  = $this->input->post('sobrenome');
             $dados['email']      = $this->input->post('email');
@@ -361,6 +386,24 @@ class Usuario extends CI_Controller
             $dados['codInstituicao'] = $valor[0]->idInstituicao;
 
             $this->m_any->store('aprovarUsuarios', $dados); //armazenando dados do cadastro do usuario
+
+            //enviar email para administradores
+            //Enviar email para administradores
+            $adms = $this->m_any->getADM();
+            $this->load->library('email');
+            foreach ($adms->result() as $admin) {
+
+                $this->email->from('iconotecaUPF@upf.br', 'UPF-Iconoteca');
+                $this->email->to($admin->email);
+                $this->email->subject('Aprovar Usuario');
+
+                $this->email->message("==================Iconoteca==================
+                    \nOlá administrador, um novo usuário acaba de se cadastrar, acesse:
+                    \nhttp://177.67.253.148/~iconoteca/usuario/aprovarUsuarios
+                    \n============================================
+                    ");
+                $result = $this->email->send();
+            }
 
             $mensagem = "<div class=\"w3-panel w3-green\"><h4 class=\"w3-text-white\"><b><i class=\"w3-xlarge fa fa-check\"></i> Aviso !</b></h4><p><b><i class=\"w3-large fa fa-caret-right\"></i> Cadastro efetuado com sucesso !</b></p></div>";
             $dados['mensagem'] = $mensagem; //msg para view
@@ -407,7 +450,6 @@ class Usuario extends CI_Controller
         }
         $query = $this->m_user->validarEmail($email);
         // /echo "Chave:  $chaveRecuperacao";
-
         if($query->num_rows() > 0)
         {
             $mensagem = null;
@@ -422,7 +464,6 @@ class Usuario extends CI_Controller
                 $mensagem = "<h2 class=\"w3-text-red w3-center\"><b>Email invalido, utilize seu email cadastrado !</b></h2>";
 
             }
-
         $this->email->message("==================Iconoteca==================
             \nAtenção ! Esta senha NÃO É SEGURA
             \nEfetue o login utilizando esses dados
