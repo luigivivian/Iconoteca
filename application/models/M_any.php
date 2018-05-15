@@ -117,4 +117,9 @@ class M_any extends CI_Model
     public function getTag($tag){
         return $this->db->query("SELECT * FROM tags WHERE nome = '$tag'");
     }
+
+    public function tag_list(){
+        $query = $this->db->get('tags');
+        return $query->result();
+    }
 }

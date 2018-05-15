@@ -141,13 +141,29 @@
 </div>
 
 <script>
-
     $(document).ready(function(){
         //autocomplete
+        var tags = [''];
+        getTags();
+        function getTags() {
+            $.ajax({
+                type: 'ajax',
+                url: '<?php echo base_url('index.php/Artefato/getTags')?>',
+                async: false,
+                dataType: 'JSON',
+                success: function (data) {
+                    var i;
+                    for (i = 0; i < data.length; i++) {
+                        tags[i] = data[i]['nome'];
+                    }
+                }
+            });
+        }
+
         $.noConflict();
         $('#tags').tokenfield({
             autocomplete:{
-                source: ['litico', 'ceramica'],
+                source: tags,
                 delay:50
             },
             showAutocompleteOnFocus: true

@@ -859,4 +859,9 @@ class Artefato extends CI_Controller
     {
         return $this->session->has_userdata('logado');
     }
+
+    function getTags() {
+        $data = $this->m_any->tag_list();
+        echo json_encode($data);
+    }
 }
