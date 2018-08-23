@@ -7,7 +7,7 @@ class Artefato extends CI_Controller
     public function index($id)
     {
         if(!isset($id)) redirect();
-        $artefato = $this->m_any->get("artefatos", null, null, null, null, null, "idArtefato", $id, "nome, nomeArquivo, complDesc, lat, lng, designacao, procedencia, dimensoes, material");
+        $artefato = $this->m_any->get("artefatos", null, null, null, null, null, "idArtefato", $id, "nome, nomeArquivo, complDesc, lat, lng, designacao, procedencia, dimensoes, material,acervo");
 
         if($artefato->num_rows() > 0)  // Encontrou o artefato
         {
@@ -25,7 +25,8 @@ class Artefato extends CI_Controller
                 'procedencia'  => $artefato->procedencia,
                 'dimensoes'  => $artefato->dimensoes,
                 'material'  => $artefato->material,
-                'anexo' => $this->m_any->getAnexos($id)
+                'anexo' => $this->m_any->getAnexos($id),
+                'acervo' => $artefato->acervo
             );
 
             $dados['title'] = $dados['nomeArtefato'] . " - Iconoteca";
@@ -42,11 +43,12 @@ class Artefato extends CI_Controller
     public function visualizar($id){
         if(!isset($id)) redirect();
         //Procurar artefato na area de adicionar
-        $artefatoAP = $this->m_any->get("aprovarArtefatos", null, null, null, null, null, "idArtefato", $id, "nome, nomeArquivo, complDesc, lat, lng, designacao, procedencia, dimensoes, material");
+        $artefatoAP = $this->m_any->get("aprovarArtefatos", null, null, null, null, null, "idArtefato", $id, "nome, nomeArquivo, complDesc, lat, lng, designacao, procedencia, dimensoes, material, acervo");
         if($artefatoAP->num_rows() > 0){
 
             $artefato = $artefatoAP->row();
             $dados = array(
+                 'acervo' => $artefato->acervo,
                 'nomeArtefato'   => $artefato->nome,
                 'arquivo'        => base_url('assets/modelos/' . $artefato->nomeArquivo),
                 'complDesc'      => $artefato->complDesc,
@@ -511,7 +513,7 @@ class Artefato extends CI_Controller
             // Caso contrário AQUI INSERE NA TABELA DEFINITIVA
             else
             {
-                $dados['artefato'] = $this->m_any->get("aprovarArtefatos", null, null, null, null, null, "idArtefato", $id_artefato, "idArtefato,nome, categoria, shortDesc, complDesc, idOwner, icone, nomeArquivo, lat, lng, designacao, procedencia, dimensoes, material");
+                $dados['artefato'] = $this->m_any->get("aprovarArtefatos", null, null, null, null, null, "idArtefato", $id_artefato, "idArtefato,nome, categoria, shortDesc, complDesc, idOwner, icone, nomeArquivo, lat, lng, designacao, procedencia, dimensoes, material, acervo");
                 $id = $this->m_any->getID()->row('id');
                 $id += 1;
                 $dadosArtefato = array(
@@ -605,7 +607,7 @@ class Artefato extends CI_Controller
             // Caso contrário, abre a view para editar o artefato $id_artefato
             else
             {
-                $dados['artefato'] = $this->m_any->get("artefatos", null, null, null, null, null, "idArtefato", $id_artefato, "nome, categoria, shortDesc, complDesc, icone, nomeArquivo, lat, lng, designacao, procedencia, dimensoes, material")->row();
+                $dados['artefato'] = $this->m_any->get("artefatos", null, null, null, null, null, "idArtefato", $id_artefato, "nome, categoria, shortDesc, complDesc, icone, nomeArquivo, lat, lng, designacao, procedencia, dimensoes, material,acervo")->row();
                 $dados['categorias'] = $this->m_any->get("categorias", null, null, null, "nomeCategoria", "asc");
                 $dados['imagens'] = $this->m_icone->getImages($id_artefato);
                 $dados['idArtefato'] = $id_artefato;

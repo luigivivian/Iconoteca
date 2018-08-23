@@ -79,7 +79,7 @@ $config['url_suffix'] = '';
 |
 */
 // $config['language']	= 'english';
-$config['language']	= 'portuguese-brazilian';
+$config['language']	= 'english';
 
 /*
 |--------------------------------------------------------------------------
